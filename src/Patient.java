@@ -47,7 +47,7 @@ public class Patient {
     // ToString
     @Override
     public String toString() {
-        return "Patient " + name + " Age: " + age + " Medical Card: " + has_medical_card;
+        return "Patient:\n\tName: " + name + "\n\tAge: " + age + "\n\tHas Medical Card: " + has_medical_card;
     }
 
 }
