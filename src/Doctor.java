@@ -6,7 +6,8 @@ public class Doctor {
     private int age;
     private int experience_years;
     private ArrayList<Patient> patients = new ArrayList<>();
-//    private ArrayList<Patient> appointments = new ArrayList<>();  //Requires a separate class
+    private ArrayList<Patient> appointments = new ArrayList<>();
+    private ArrayList<Float> appointment_time = new ArrayList<>();
 
     //Constructors
     public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients) {
@@ -39,6 +40,9 @@ public class Doctor {
 
     public ArrayList<Patient> getPatients() { return patients; };
 
+    public ArrayList<Patient> getAppointments() { return appointments; };
+    public ArrayList<Float> getAppointment_time() { return appointment_time; };
+
     public void setName(String name) {
         this.name = name;
     };
@@ -69,6 +73,32 @@ public class Doctor {
             total++;
         }
         System.out.println("Total number of patients: "+total);
+    }
+
+    public void displayAppointments()
+    {
+        int total = 0;
+        System.out.println("\bTime\t\bName\t\bAge\t\bHas Medical Card");
+        for(int i = 0; i <= appointments.size(); i++)
+        {
+            total++;
+            System.out.println(appointment_time.get(i)+"\t"+patients.get(i).getName()+
+                    "\t"+patients.get(i).getAge()+"\t"+patients.get(i).getHas_medical_card()+"\t");
+        }
+        System.out.println("Total amount of appointments: "+total);
+    }
+
+    public void addAppointment(Patient p, float time)
+    {
+        appointments.add(p);
+        appointment_time.add(time);
+    }
+
+    public void addAppointment(String name, int age, boolean mc, float time)
+    {
+        Patient p = new Patient(name, age, mc);
+        appointments.add(p);
+        appointment_time.add(time);
     }
 
 }
