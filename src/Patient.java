@@ -3,11 +3,20 @@ public class Patient {
     public String name;
     public Integer age;
     public boolean has_medical_card;
+    public String phone;
 
     public Patient(String name, Integer age, boolean has_medical_card) {
         this.name = name;
         this.age = age;
         this.has_medical_card = has_medical_card;
+
+    }
+
+    public Patient(String name, Integer age, boolean has_medical_card, String phone) {
+        this.name = name;
+        this.age = age;
+        this.has_medical_card = has_medical_card;
+        this.phone = phone;
 
     }
 
@@ -31,6 +40,10 @@ public class Patient {
         return has_medical_card;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     // Setters
     public void setName(String name) {
         this.name = name;
@@ -50,4 +63,20 @@ public class Patient {
         return "Patient:\n\tName: " + name + "\n\tAge: " + age + "\n\tHas Medical Card: " + has_medical_card;
     }
 
+    public String changePhoneNumber(String phone) {
+        if (phone.indexOf("+") == 1) {
+            if (phone.length() > 7 && phone.length() < 15) {
+                return "Success";
+            }
+        }
+        return "Invalid Phone Number";
+    }
+
+    public String addAppointment(Doctor doctor, String time) {
+        if (doctor.getPatients().contains(this)) {
+            doctor.addAppointment(this, time);
+            return "Success";
+        }
+        return "Error";
+    }
 }

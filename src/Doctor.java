@@ -82,8 +82,7 @@ public class Doctor {
                 "\nYears of Practice: " + this.experience_years;
     }
 
-    public void displayPatients()
-    {
+    public void displayPatients() {
         int total = 0;
         for (Patient i : patients)
         {
@@ -93,8 +92,7 @@ public class Doctor {
         System.out.println("Total number of patients: "+total);
     }
 
-    public void displayAppointments()
-    {
+    public void displayAppointments() {
         int total = 0;
         System.out.println("\bTime\t\bName\t\bAge\t\bHas Medical Card");
         for(int i = 0; i <= appointments.size(); i++)
@@ -103,20 +101,11 @@ public class Doctor {
             System.out.println(appointment_time.get(i)+"\t"+patients.get(i).getName()+
                     "\t"+patients.get(i).getAge()+"\t"+patients.get(i).getHas_medical_card()+"\t");
         }
-        System.out.println("Total amount of appointments: "+total);
+        System.out.println("Total amount of appointments: " + total);
     }
-
-    public void addAppointment(Patient p, String time)
-    {
-        appointments.add(p);
-        appointment_time.add(time);
-    }
-
-    public void addAppointment(String name, int age, boolean mc, String time)
-    {
-        Patient p = new Patient(name, age, mc);
-        appointments.add(p);
-        appointment_time.add(time);
+    public void addAppointment(Patient p, String time){
+        this.appointments.add(p);
+        this.appointment_time.add(time);
     }
 
     public void cancelAppointment(Patient p)
