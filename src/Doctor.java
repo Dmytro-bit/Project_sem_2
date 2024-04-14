@@ -5,13 +5,14 @@ public class Doctor {
     private String name;
     private int age;
     private int experience_years;
+    private String department;
     private ArrayList<Patient> patients = new ArrayList<>();
     private ArrayList<Patient> appointments = new ArrayList<>();
     private ArrayList<String> appointment_time = new ArrayList<>();
     private ArrayList<String> appointment_date = new ArrayList<>();
 
     //Constructors
-    public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients, ArrayList<Patient> appointments, ArrayList<String> appointment_time, ArrayList<String> appointment_date) {
+    public Doctor(String name, int age, int experience_years, String department, ArrayList<Patient> patients, ArrayList<Patient> appointments, ArrayList<String> appointment_time, ArrayList<String> appointment_date) {
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
@@ -19,12 +20,14 @@ public class Doctor {
         this.appointments = appointments;
         this.appointment_time = appointment_time;
         this.appointment_date = appointment_date;
+        this.department = department;
     }
 
-    public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients) {
+    public Doctor(String name, int age, int experience_years, String department, ArrayList<Patient> patients) {
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
+        this.department = department;
         this.patients = patients;
         this.appointments = new ArrayList<>();
         this.appointment_time = new ArrayList<>();
@@ -35,6 +38,7 @@ public class Doctor {
         this.name = "";
         this.age = 0;
         this.experience_years = 0;
+        this.department = "";
         this.patients = new ArrayList<>();
         this.appointments = new ArrayList<>();
         this.appointment_time = new ArrayList<>();
@@ -55,6 +59,8 @@ public class Doctor {
         return experience_years;
     };
 
+    public String getDepartment() { return department; };
+
     public ArrayList<Patient> getPatients() { return patients; };
 
     public ArrayList<Patient> getAppointments() { return appointments; };
@@ -72,6 +78,8 @@ public class Doctor {
     public void setExperience_years(int experience_years) {
         this.experience_years = experience_years;
     };
+
+    public void setDepartment(String department) { this.department = department; };
 
     public void setPatients(ArrayList<Patient> patients) { this.patients = patients; };
 

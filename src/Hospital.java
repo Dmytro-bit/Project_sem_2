@@ -5,12 +5,15 @@ import java.util.ArrayList;
 public class Hospital {
     //Attributes
     private String name;
+
+    private ArrayList<String> departments;
     private ArrayList<Doctor> doctors;
 
     //Constructor
-    public Hospital(String name, ArrayList<Doctor> doctors)
+    public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments)
     {
         this.name = name;
+        this.departments = departments;
         this.doctors = doctors;
     }
 
@@ -18,14 +21,17 @@ public class Hospital {
     {
         this.name = "";
         this.doctors = new ArrayList<>();
+        this.departments = new ArrayList<>();
     }
 
     //Getters
     public String getName() { return this.name; };
+    public ArrayList<String> getDepartments() { return this.departments; };
     public ArrayList<Doctor> getDoctors() { return this.doctors; };
 
     //Setters
     public void setName(String name) { this.name = name; };
+    public void setDepartments(ArrayList<String> departments) { this.departments = departments; };
     public void setDoctors(ArrayList<Doctor> doctors) { this.doctors = doctors; };
 
     @Override
@@ -40,9 +46,9 @@ public class Hospital {
         System.out.println("Dr. "+d.getName()+" was hired");
     }
 
-    public void hireDoctor(String name, int age, int exp_years, ArrayList<Patient> p)
+    public void hireDoctor(String name, int age, int exp_years, String department, ArrayList<Patient> p)
     {
-        Doctor d = new Doctor(name, age, exp_years, p);
+        Doctor d = new Doctor(name, age, exp_years, department, p);
         doctors.add(d);
         System.out.println("Dr. "+d.getName()+" was hired");
     }
