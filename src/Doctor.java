@@ -131,4 +131,39 @@ public class Doctor {
         System.out.println("The appointment was successfully canceled");
     }
 
+    public void addPatient(Patient p)
+    {
+        if(!patients.contains(p))
+        {
+            patients.add(p);
+            System.out.println("Patient "+ p.getName() +"has been put on record to Dr. "+this.getName());
+        }
+        else
+            System.out.println("This patient is already registered with Dr. "+this.getName());
+    }
+
+    public void addPatient(String name, int age, boolean mc)
+    {
+        Patient p = new Patient(name, age, mc);
+        if(!patients.contains(p))
+        {
+            patients.add(p);
+            System.out.println("Patient "+ p.getName()+"has been put on record to Dr. "+this.getName());
+        }
+        else
+            System.out.println("This patient is already registered with Dr. "+this.getName());
+    }
+
+    public void deletePatient(Patient p)
+    {
+        if(patients.contains(p))
+        {
+            patients.remove(p);
+            System.out.println("Patient "+ p.getName() +"has been deleted from Dr. "+this.getName()+"'s register");
+        }
+        else
+            System.out.println("This patient is not in the Dr. "+this.getName()+"'s register");
+    }
+
+
 }
