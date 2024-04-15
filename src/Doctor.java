@@ -27,31 +27,23 @@ public class Doctor {
         this.appointments = new ArrayList<>();
     }
 
-    //Getters/Setters
+    //Getters
 
     public String getName() {
         return name;
     }
 
-    ;
-
     public int getAge() {
         return age;
     }
-
-    ;
 
     public int getExperience_years() {
         return experience_years;
     }
 
-    ;
-
     public String getDepartment() {
         return department;
     }
-
-    ;
 
     public ArrayList<Patient> getPatients() {
         return patients;
@@ -61,37 +53,26 @@ public class Doctor {
         return appointments;
     }
 
-    ;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    ;
-
     public void setAge(int age) {
         this.age = age;
     }
-
-    ;
 
     public void setExperience_years(int experience_years) {
         this.experience_years = experience_years;
     }
 
-    ;
-
     public void setDepartment(String department) {
         this.department = department;
     }
 
-    ;
-
     public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
     }
-
-    ;
 
     @Override
     public String toString() {
@@ -151,5 +132,4 @@ public class Doctor {
         } else
             System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
     }
-
 }

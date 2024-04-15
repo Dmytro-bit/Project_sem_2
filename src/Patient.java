@@ -82,11 +82,7 @@ public class Patient {
         return "Error";
     }
 
-//    public String cancelAppointment(Doctor doctor) {
-//        if (doctor.getPatients().contains(this)) {
-//            doctor.getAppointments().remove(Appointment a);
-//            return "Success";
-//        }
-//        return "Error";
-//    }
+    public String cancelAppointment(Doctor doctor, String time) {  // Make this function
+        return null;
+    }
 }

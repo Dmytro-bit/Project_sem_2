@@ -25,38 +25,26 @@ public class Hospital {
         return this.name;
     }
 
-    ;
-
     public ArrayList<String> getDepartments() {
         return this.departments;
     }
 
-    ;
-
     public ArrayList<Doctor> getDoctors() {
         return this.doctors;
     }
-
-    ;
 
     //Setters
     public void setName(String name) {
         this.name = name;
     }
 
-    ;
-
     public void setDepartments(ArrayList<String> departments) {
         this.departments = departments;
     }
 
-    ;
-
     public void setDoctors(ArrayList<Doctor> doctors) {
         this.doctors = doctors;
     }
-
-    ;
 
     @Override
     public String toString() {
