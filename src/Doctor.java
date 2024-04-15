@@ -10,11 +10,11 @@ public class Doctor {
     private ArrayList<Appointment> appointments;
 
     //Constructors
-    public Doctor(String name, int age, int experience_years, String department, ArrayList<Patient> patients) {
+    public Doctor(String name, int age, int experience_years, String department) {
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
-        this.patients = patients;
+        this.patients = new ArrayList<Patient>();
         this.department = department;
     }
 
@@ -23,8 +23,8 @@ public class Doctor {
         this.age = 0;
         this.experience_years = 0;
         this.department = "";
-        this.patients = new ArrayList<>();
-        this.appointments = new ArrayList<>();
+        this.patients = new ArrayList<Patient>();
+        this.appointments = new ArrayList<Appointment>();
     }
 
     //Getters
