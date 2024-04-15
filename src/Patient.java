@@ -8,6 +8,8 @@ public class Patient {
 
     private ArrayList<MedicalHistory> medicalHistories;
 
+    private ArrayList<Appointment> appointments;
+
     public Patient(String name, Integer age, boolean has_medical_card) {
         this.name = name;
         this.age = age;
@@ -46,6 +48,10 @@ public class Patient {
         return phone;
     }
 
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
+    }
+
     // Setters
     public void setName(String name) {
         this.name = name;
@@ -57,6 +63,10 @@ public class Patient {
 
     public void setHas_medical_card(boolean has_medical_card) {
         this.has_medical_card = has_medical_card;
+    }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     // ToString
@@ -77,12 +87,17 @@ public class Patient {
     public String addAppointment(Doctor doctor, Appointment a) {
         if (doctor.getPatients().contains(this)) {
             doctor.addAppointment(a);
+            this.appointments.add(a);
             return "Success";
         }
         return "Error";
     }
 
-    public String cancelAppointment(Doctor doctor, String time) {  // Make this function
-        return null;
+    public void cancelAppointment(Appointment appointment) {  // Make this function
+        if (this.appointments.contains(appointment)) {
+            this.appointments.remove(appointment);
+            Doctor doctor = appointment.getDoctor();
+            doctor.removeAppointment(appointment);
+        }
     }
 }

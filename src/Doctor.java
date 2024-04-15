@@ -132,4 +132,8 @@ public class Doctor {
         } else
             System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
     }
+
+    public void removeAppointment(Appointment a) {
+        this.appointments.remove(a);
+    }
 }
