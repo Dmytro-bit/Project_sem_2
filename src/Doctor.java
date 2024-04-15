@@ -6,32 +6,16 @@ public class Doctor {
     private int age;
     private int experience_years;
     private String department;
-    private ArrayList<Patient> patients = new ArrayList<>();
-    private ArrayList<Patient> appointments = new ArrayList<>();
-    private ArrayList<String> appointment_time = new ArrayList<>();
-    private ArrayList<String> appointment_date = new ArrayList<>();
+    private ArrayList<Patient> patients;
+    private ArrayList<Appointment> appointments;
 
     //Constructors
-    public Doctor(String name, int age, int experience_years, String department, ArrayList<Patient> patients, ArrayList<Patient> appointments, ArrayList<String> appointment_time, ArrayList<String> appointment_date) {
-        this.name = name;
-        this.age = age;
-        this.experience_years = experience_years;
-        this.patients = patients;
-        this.appointments = appointments;
-        this.appointment_time = appointment_time;
-        this.appointment_date = appointment_date;
-        this.department = department;
-    }
-
     public Doctor(String name, int age, int experience_years, String department, ArrayList<Patient> patients) {
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
-        this.department = department;
         this.patients = patients;
-        this.appointments = new ArrayList<>();
-        this.appointment_time = new ArrayList<>();
-        this.appointment_date = new ArrayList<>();
+        this.department = department;
     }
 
     public Doctor() {
@@ -41,8 +25,6 @@ public class Doctor {
         this.department = "";
         this.patients = new ArrayList<>();
         this.appointments = new ArrayList<>();
-        this.appointment_time = new ArrayList<>();
-        this.appointment_date = new ArrayList<>();
     }
 
     //Getters/Setters
@@ -75,22 +57,8 @@ public class Doctor {
         return patients;
     }
 
-    ;
-
-    public ArrayList<Patient> getAppointments() {
+    public ArrayList<Appointment> getAppointments() {
         return appointments;
-    }
-
-    ;
-
-    public ArrayList<String> getAppointment_time() {
-        return appointment_time;
-    }
-
-    ;
-
-    public ArrayList<String> getAppointment_date() {
-        return appointment_date;
     }
 
     ;
@@ -141,31 +109,22 @@ public class Doctor {
         System.out.println("Total number of patients: " + total);
     }
 
+    public void addAppointment(Appointment a) {
+        appointments.add(a);
+    }
+
+    public void addAppointment(String time, Doctor d, Patient p) {
+        Appointment a = new Appointment(time, d, p);
+        appointments.add(a);
+    }
+
     public void displayAppointments() {
         int total = 0;
-        System.out.println("\bTime\t\bName\t\bAge\t\bHas Medical Card");
         for (int i = 0; i <= appointments.size(); i++) {
             total++;
-            System.out.println(appointment_time.get(i) + "\t" + patients.get(i).getName() +
-                    "\t" + patients.get(i).getAge() + "\t" + patients.get(i).getHas_medical_card() + "\t");
+            System.out.println(appointments.get(i));
         }
         System.out.println("Total amount of appointments: " + total);
-    }
-
-    public void addAppointment(Patient p, String time) {
-        this.appointments.add(p);
-        this.appointment_time.add(time);
-    }
-
-    public void cancelAppointment(Patient p) {
-        if (appointments.contains(p)) {
-            appointments.remove(p);
-            appointment_time.remove(appointments.indexOf(p));
-            appointment_date.remove(appointments.indexOf(p));
-        } else {
-            System.out.println("There is no appointment scheduled for this person");
-        }
-        System.out.println("The appointment was successfully canceled");
     }
 
     public void addPatient(Patient p) {
