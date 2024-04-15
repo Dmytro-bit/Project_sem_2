@@ -29,6 +29,7 @@ public class Main {
         System.out.println(hospital_1);
 
 
+
 //        ArrayList<Doctor> doctors;
     }
 }
