@@ -1,9 +1,12 @@
+import java.util.ArrayList;
 
 public class Patient {
-    public String name;
-    public Integer age;
-    public boolean has_medical_card;
-    public String phone;
+    private String name;
+    private Integer age;
+    private boolean has_medical_card;
+    private String phone;
+
+    private ArrayList<MedicalHistory> medicalHistories;
 
     public Patient(String name, Integer age, boolean has_medical_card) {
         this.name = name;
@@ -17,7 +20,6 @@ public class Patient {
         this.age = age;
         this.has_medical_card = has_medical_card;
         this.phone = phone;
-
     }
 
     public Patient() {
@@ -73,6 +75,14 @@ public class Patient {
     }
 
     public String addAppointment(Doctor doctor, String time) {
+        if (doctor.getPatients().contains(this)) {
+            doctor.addAppointment(this, time);
+            return "Success";
+        }
+        return "Error";
+    }
+
+    public String cancelAppointment(Doctor doctor, String time) {
         if (doctor.getPatients().contains(this)) {
             doctor.addAppointment(this, time);
             return "Success";
