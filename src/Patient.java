@@ -52,6 +52,8 @@ public class Patient {
         return appointments;
     }
 
+    public ArrayList<MedicalHistory> getMedicalHistories() { return medicalHistories; }
+
     // Setters
     public void setName(String name) {
         this.name = name;

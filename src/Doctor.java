@@ -136,4 +136,36 @@ public class Doctor {
     public void removeAppointment(Appointment a) {
         this.appointments.remove(a);
     }
+
+    public void prescribe(Patient p, MedicalHistory mh)
+    {
+        if(patients.contains(p))
+        {
+            for(Appointment a : p.getAppointments())
+            {
+                if(a.getAppointmentTime().equals(mh.getTime()))
+                {
+                    p.getMedicalHistories().add(mh);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info)
+    {
+        if(patients.contains(p))
+        {
+            for(Appointment a : p.getAppointments())
+            {
+                if(a.getAppointmentTime().equals(time))
+                {
+                    MedicalHistory mh = new MedicalHistory(time, prescription, dose, info);
+                    p.getMedicalHistories().add(mh);
+                    break;
+                }
+            }
+        }
+    }
+
 }
