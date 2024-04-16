@@ -18,6 +18,14 @@ public class Doctor {
         this.department = department;
     }
 
+    public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients, String department) {
+        this.name = name;
+        this.age = age;
+        this.experience_years = experience_years;
+        this.patients = patients;
+        this.department = department;
+    }
+
     public Doctor() {
         this.name = "";
         this.age = 0;

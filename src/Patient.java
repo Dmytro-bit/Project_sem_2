@@ -28,6 +28,7 @@ public class Patient {
         this.name = "";
         this.age = 0;
         this.has_medical_card = false;
+        this.phone = "";
     }
 
     // Getters
