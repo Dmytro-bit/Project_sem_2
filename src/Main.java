@@ -61,7 +61,7 @@ public class Main {
             if(option == 1)
             {
                 drawPatientOptions();
-                option = 4;
+                break;
             }
             else if(option == 2)
             {
@@ -121,6 +121,7 @@ public class Main {
             else if(option == 6)
             {
                 drawMenu();
+                break;
             }
         }
     }
