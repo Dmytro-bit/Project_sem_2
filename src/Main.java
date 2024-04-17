@@ -62,7 +62,8 @@ public class Main {
         {
             if(option == 1)
             {
-
+                drawPatientOptions();
+                option = 4;
             }
             else if(option == 2)
             {
@@ -74,8 +75,75 @@ public class Main {
             }
         }
 
-
-
     }
+
+    public static void drawPatientOptions()
+    {
+        int option = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Display Patient");
+        System.out.println("2. Change Phone Number");
+        System.out.println("3. Display Appointments");
+        System.out.println("4. Add Appointments");
+        System.out.println("5. Cancel Appointments");
+        System.out.println("6. <<< Back");
+        System.out.println("---------------------------------");
+        System.out.println("7. Exit");
+        option = input.nextInt();
+
+        while(option <= 0 || option > 7)
+        {
+            System.out.println("Invalid Value");
+            option = input.nextInt();
+        }
+
+        while(option != 7)
+        {
+            if(option == 1)
+            {
+
+            }
+            else if(option == 2)
+            {
+
+            }
+            else if(option == 3)
+            {
+
+            }
+            else if(option == 4)
+            {
+
+            }
+            else if(option == 5)
+            {
+
+            }
+            else if(option == 6)
+            {
+                drawMenu();
+            }
+        }
+    }
+
+    public static void drawDoctorOptions()
+    {
+        int option = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Display Doctor");
+        System.out.println("2. Display Patients");
+        System.out.println("3. Display Appointments");
+        System.out.println("4. Add Appointments");
+        System.out.println("5. Cancel Appointment");
+        System.out.println("6. Add Patient");
+        System.out.println("7. Remove Patient");
+        System.out.println("8. Prescribe");
+        System.out.println("---------------------------------");
+        System.out.println("9. Exit");
+        option = input.nextInt();
+    }
+
 
 }
