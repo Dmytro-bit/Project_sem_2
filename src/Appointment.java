@@ -1,9 +1,8 @@
-import java.util.ArrayList;
-
 public class Appointment {
     private String appointmentTime;
     private Doctor doctor;
     private Patient patient;
+
     public Appointment(String appointmentTime, Doctor doctor, Patient patient) {
         this.appointmentTime = appointmentTime;
         this.doctor = doctor;

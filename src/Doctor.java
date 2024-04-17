@@ -14,8 +14,9 @@ public class Doctor {
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
-        this.patients = new ArrayList<Patient>();
+        this.patients = new ArrayList<>();
         this.department = department;
+        this.appointments = new ArrayList<>();
     }
 
     public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients, String department) {
@@ -31,8 +32,8 @@ public class Doctor {
         this.age = 0;
         this.experience_years = 0;
         this.department = "";
-        this.patients = new ArrayList<Patient>();
-        this.appointments = new ArrayList<Appointment>();
+        this.patients = new ArrayList<>();
+        this.appointments = new ArrayList<>();
     }
 
     //Getters
@@ -102,16 +103,17 @@ public class Doctor {
         appointments.add(a);
     }
 
-    public void addAppointment(String time, Doctor d, Patient p) {
-        Appointment a = new Appointment(time, d, p);
+    public void addAppointment(String time, Patient p) {
+        Appointment a = new Appointment(time, this, p);
+        p.addAppointment(a);
         appointments.add(a);
     }
 
     public void displayAppointments() {
         int total = 0;
-        for (int i = 0; i <= appointments.size(); i++) {
+        for (Appointment appointment : appointments) {
             total++;
-            System.out.println(appointments.get(i));
+            System.out.println(appointment);
         }
         System.out.println("Total amount of appointments: " + total);
     }
@@ -135,8 +137,13 @@ public class Doctor {
 
     public void deletePatient(Patient p) {
         if (patients.contains(p)) {
+            for (int i = 0; i < this.appointments.size(); i++) {
+                if (appointments.get(i).getDoctor() == this && appointments.get(i).getPatient() == p) {
+                    appointments.remove(i);
+                }
+            }
             patients.remove(p);
-            System.out.println("Patient " + p.getName() + "has been deleted from Dr. " + this.getName() + "'s register");
+            System.out.println("Patient " + p.getName() + " has been deleted from Dr. " + this.getName() + "'s register");
         } else
             System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
     }
@@ -145,14 +152,10 @@ public class Doctor {
         this.appointments.remove(a);
     }
 
-    public void prescribe(Patient p, MedicalHistory mh)
-    {
-        if(patients.contains(p))
-        {
-            for(Appointment a : p.getAppointments())
-            {
-                if(a.getAppointmentTime().equals(mh.getTime()))
-                {
+    public void prescribe(Patient p, MedicalHistory mh) {
+        if (patients.contains(p)) {
+            for (Appointment a : p.getAppointments()) {
+                if (a.getAppointmentTime().equals(mh.getTime())) {
                     p.getMedicalHistories().add(mh);
                     break;
                 }
@@ -160,14 +163,10 @@ public class Doctor {
         }
     }
 
-    public void prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info)
-    {
-        if(patients.contains(p))
-        {
-            for(Appointment a : p.getAppointments())
-            {
-                if(a.getAppointmentTime().equals(time))
-                {
+    public void prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
+        if (patients.contains(p)) {
+            for (Appointment a : p.getAppointments()) {
+                if (a.getAppointmentTime().equals(time)) {
                     MedicalHistory mh = new MedicalHistory(time, prescription, dose, info);
                     p.getMedicalHistories().add(mh);
                     break;

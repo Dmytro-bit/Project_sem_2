@@ -6,13 +6,6 @@ public class MedicalHistory {
     private ArrayList<Double> dose;
     private ArrayList<String> info;
 
-    public MedicalHistory() {
-        this.time = null;
-        this.prescription = null;
-        this.dose = null;
-        this.info = null;
-    }
-
     public MedicalHistory(String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
         this.time = time;
         this.prescription = prescription;
@@ -56,10 +49,10 @@ public class MedicalHistory {
 
     @Override
     public String toString() {
-        String returnString = "Appointment time: " + time + "\nPrescription: ";
+        String returnString = "Appointment time: " + time + "Prescription: ";
 
         for (String medication : prescription) {
-            returnString += "\t" + medication + " " + dose.get(prescription.indexOf(medication)) + " Info: "+ info.get(prescription.indexOf(medication));
+            returnString += "\t" + medication + " " + dose.get(prescription.indexOf(medication)) + "mg " + info.get(prescription.indexOf(medication));
         }
 
         return returnString;

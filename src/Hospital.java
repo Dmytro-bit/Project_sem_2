@@ -14,12 +14,6 @@ public class Hospital {
         this.doctors = doctors;
     }
 
-    public Hospital() {
-        this.name = "";
-        this.doctors = new ArrayList<>();
-        this.departments = new ArrayList<>();
-    }
-
     //Getters
     public String getName() {
         return this.name;
@@ -48,7 +42,7 @@ public class Hospital {
 
     @Override
     public String toString() {
-        return "Hospital:\nName: " + this.name +" Departments: " + this.departments + " Doctors: " + this.doctors;
+        return "Hospital:\nName: " + this.name + " Departments: " + this.departments + " Doctors: " + this.doctors;
     }
 
     //Methods

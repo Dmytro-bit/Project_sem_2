@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Tests {
     public static void main(String[] args) {
 
+//      Hospital initialization
+
         ArrayList<String> Departments = new ArrayList<>();
         Departments.add("Emergency Medicine Department");
         Departments.add("Pediatrics Department");
@@ -16,26 +18,32 @@ public class Tests {
         Departments.add("Orthopedics Department");
 
         Hospital hospital_1 = new Hospital("Hospital #1", new ArrayList<>(), Departments);
+
+        System.out.println("\n----------------- Hospital toString test -----------------\n");
         System.out.println(hospital_1);
 
-        // Doctor test
+//      Doctor initialization
 
         Doctor doctor_1 = new Doctor("Bob", 46, 10, Departments.get(2));
         Doctor doctor_2 = new Doctor("ROb", 60, 29, Departments.get(6));
+
+        System.out.println("\n----------------- Doctor toString test -----------------\n");
+
         System.out.println();
         System.out.println(doctor_1);
 
-        hospital_1.hireDoctor(doctor_1);
 
+        System.out.println("\n----------------- Hospital hireDoctor test -----------------\n");
+        hospital_1.hireDoctor(doctor_1);
         System.out.println();
         System.out.println(hospital_1);
 
-        // Patient test
+//      Patient initialization
 
-        Patient patient_1  = new Patient("Clark", 30, false);
-        Patient patient_2  = new Patient("Mark", 32, true, "+3530749128627");
+        Patient patient_1 = new Patient("Clark", 30, false);
+        Patient patient_2 = new Patient("Mark", 32, true, "+3530749128627");
 
-        System.out.println("\n-----------------Patient Test-----------------\n");
+        System.out.println("\n-----------------Patient toString Test-----------------\n");
         System.out.println(patient_1);
         System.out.println(patient_2);
 
@@ -47,22 +55,52 @@ public class Tests {
         System.out.println(patient_1.getHas_medical_card());
         System.out.println(patient_1.getAppointments());
 
+
+        System.out.println("\n-----------------Patient changePhoneNumber Test-----------------\n");
         System.out.println(patient_1.changePhoneNumber("+3530749128627"));
 
-        // Doctor addPatient test
+
+        System.out.println("\n-----------------Doctor addPatient Test-----------------\n");
         doctor_1.addPatient(patient_1);
         doctor_2.addPatient(patient_2);
-        System.out.println("\n-----------------Doctor add patient Test-----------------\n");
         doctor_1.displayPatients();
         System.out.println();
         doctor_2.displayPatients();
 
 
+        System.out.println("\n-----------------Doctor addAppointment Test-----------------\n");
+        doctor_1.addAppointment("2004-01-08 04:05:06", patient_1);
+        doctor_1.displayAppointments();
 
 
+        System.out.println("\n-----------------Doctor deletePatient Test-----------------\n");
+        System.out.println(doctor_1.getAppointments());
+        doctor_1.deletePatient(patient_1);
+        System.out.println(doctor_1.getAppointments());
 
+        System.out.println("\n-----------------Doctor prescribe Test-----------------\n");
+        ArrayList<String> prescription = new ArrayList<>();
+        ArrayList<Double> dose = new ArrayList<>();
+        ArrayList<String> info = new ArrayList<>();
 
-//        ArrayList<Doctor> doctors;
+        prescription.add("Paracetamol");
+        dose.add(100.0);
+        info.add("3 days");
+        prescription.add("Ibuprofen");
+        dose.add(150.3);
+        info.add("5 days");
+        prescription.add("Omeprazole");
+        dose.add(180.1);
+        info.add("30 days");
+        prescription.add("Aspirin");
+        dose.add(10.4);
+        info.add("15 days");
 
+        System.out.println(patient_2.getMedicalHistories());
+        System.out.println(doctor_2.getPatients());
+        doctor_2.addAppointment("2004-01-08 04:05:06", patient_2);
+
+        doctor_2.prescribe(patient_2, "2004-01-08 04:05:06", prescription, dose, info);
+        System.out.println(patient_2.getMedicalHistories());
     }
 }

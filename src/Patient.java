@@ -14,6 +14,8 @@ public class Patient {
         this.name = name;
         this.age = age;
         this.has_medical_card = has_medical_card;
+        this.appointments = new ArrayList<>();
+        this.medicalHistories = new ArrayList<>();
 
     }
 
@@ -22,6 +24,8 @@ public class Patient {
         this.age = age;
         this.has_medical_card = has_medical_card;
         this.phone = phone;
+        this.appointments = new ArrayList<>();
+        this.medicalHistories = new ArrayList<>();
     }
 
     public Patient() {
@@ -29,6 +33,7 @@ public class Patient {
         this.age = 0;
         this.has_medical_card = false;
         this.phone = "";
+        this.medicalHistories = new ArrayList<>();
     }
 
     // Getters
@@ -53,7 +58,9 @@ public class Patient {
         return appointments;
     }
 
-    public ArrayList<MedicalHistory> getMedicalHistories() { return medicalHistories; }
+    public ArrayList<MedicalHistory> getMedicalHistories() {
+        return medicalHistories;
+    }
 
     // Setters
     public void setName(String name) {
@@ -75,7 +82,7 @@ public class Patient {
     // ToString
     @Override
     public String toString() {
-        return "Patient:\n\tName: " + name + "\n\tAge: " + age + "\n\tHas Medical Card: " + has_medical_card;
+        return "Patient name: " + name + "\tAge: " + age + "\tHas Medical Card: " + has_medical_card;
     }
 
     public void displayMedicalHistory()
@@ -100,11 +107,13 @@ public class Patient {
 
     public String addAppointment(Doctor doctor, Appointment a) {
         if (doctor.getPatients().contains(this)) {
-            doctor.addAppointment(a);
             this.appointments.add(a);
             return "Success";
         }
         return "Error";
+    }
+    public void addAppointment(Appointment a) {
+        this.appointments.add(a);
     }
 
     public void cancelAppointment(Appointment appointment) {  // Make this function
