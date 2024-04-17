@@ -1,6 +1,7 @@
 import com.sun.source.doctree.DocCommentTree;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,5 +36,46 @@ public class Main {
         departments1.add("Ophthalmology");
 
         Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
+
+        drawMenu();
     }
+
+    public static void drawMenu()
+    {
+        int option = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.println("What is your access level: ");
+        System.out.println("1. Patient");
+        System.out.println("2. Doctor");
+        System.out.println("3. Hospital Administration");
+        System.out.println("---------------------------------");
+        System.out.println("4. Exit");
+        option = input.nextInt();
+
+        while(option <= 0 || option > 4)
+        {
+            System.out.println("Invalid Value");
+            option = input.nextInt();
+        }
+
+        while(option != 4)
+        {
+            if(option == 1)
+            {
+
+            }
+            else if(option == 2)
+            {
+
+            }
+            else if(option == 3)
+            {
+
+            }
+        }
+
+
+
+    }
+
 }

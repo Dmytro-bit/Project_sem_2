@@ -78,6 +78,17 @@ public class Patient {
         return "Patient:\n\tName: " + name + "\n\tAge: " + age + "\n\tHas Medical Card: " + has_medical_card;
     }
 
+    public void displayMedicalHistory()
+    {
+        System.out.println(this.medicalHistories);
+    }
+
+    public void displayAppointment()
+    {
+        System.out.println(this.appointments);
+    }
+
+
     public String changePhoneNumber(String phone) {
         if (phone.indexOf("+") == 1) {
             if (phone.length() > 7 && phone.length() < 15) {

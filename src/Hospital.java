@@ -57,11 +57,11 @@ public class Hospital {
         System.out.println("Dr. " + d.getName() + " was hired");
     }
 
-//    public void hireDoctor(String name, int age, int exp_years, String department, ArrayList<Patient> p) { // Require Bugfix
-//        Doctor d = new Doctor(name, age, exp_years, department, p);
-//        doctors.add(d);
-//        System.out.println("Dr. " + d.getName() + " was hired");
-//    }
+    public void hireDoctor(String name, int age, int exp_years, String department, ArrayList<Patient> p) { // Require Bugfix
+        Doctor d = new Doctor(name, age, exp_years, p, department);
+        doctors.add(d);
+        System.out.println("Dr. " + d.getName() + " was hired");
+    }
 
     public void fireDoctor(Doctor d) {
         if (doctors.contains(d)) {
