@@ -1,7 +1,13 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    public  static ArrayList<Patient> patients1 = new ArrayList<>();
+    public  static ArrayList<Patient> patients2 = new ArrayList<>();
+    public  static ArrayList<Doctor> doctors1 = new ArrayList<>();
+    public  static ArrayList<String> departments1 = new ArrayList<>();
+    public  static Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
     public static void main(String[] args) {
         //Patients
         Patient p1 = new Patient("John Doe", 35, true, "085-456-7890");
@@ -10,12 +16,12 @@ public class Main {
         Patient p4 = new Patient("Bob Brown", 50, false, "087-222-3333");
         Patient p5 = new Patient("Emily Davis", 20, true, "085-444-4444");
 
-        ArrayList<Patient> patients1 = new ArrayList<>();
+
         patients1.add(p1);
         patients1.add(p3);
         patients1.add(p4);
 
-        ArrayList<Patient> patients2 = new ArrayList<>();
+
         patients2.add(p2);
         patients2.add(p5);
 
@@ -23,17 +29,15 @@ public class Main {
         Doctor d1 = new Doctor("Roland Smith", 45, 15, patients1, "Cardiology");
         Doctor d2 = new Doctor("Phillip Johnson", 38, 10, patients2, "Neurology");
 
-        ArrayList<Doctor> doctors1 = new ArrayList<>();
+
         doctors1.add(d1);
         doctors1.add(d2);
 
         //Hospitals
-        ArrayList<String> departments1 = new ArrayList<>();
+
         departments1.add("Cardiology");
         departments1.add("Neurology");
         departments1.add("Ophthalmology");
-
-        Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
 
         drawMenu();
     }
@@ -69,7 +73,8 @@ public class Main {
             }
             else if(option == 3)
             {
-
+                drawAdminOptions();
+                break;
             }
         }
 
@@ -144,5 +149,187 @@ public class Main {
         option = input.nextInt();
     }
 
+    public static void drawAdminOptions()
+    {
+        int option = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Manage doctors ");
+        System.out.println("2. Manage patients ");
+        System.out.println("3. Manage hospitals ");
+        System.out.println("4. Appointments Management ");
+        System.out.println("5. Log out ");
+        System.out.println("---------------------------------");
+        System.out.println("6. Exit ");
 
+        option = input.nextInt();
+
+        switch (option){
+            case 1:
+                manageDoctors();
+                break;
+
+            case 2:
+                managePatients();
+                break;
+
+            case 3:
+                manageDepartments();
+                break;
+
+            case 4:
+                manageAppointments();
+                break;
+
+            case 5:
+                drawMenu();
+                break;
+
+            case 6:
+                break;
+
+            default:
+                System.out.println("Invalid Value");
+                drawAdminOptions();
+        }
+    }
+
+    public static void manageDoctors() {
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Add doctor");
+        System.out.println("2. Edit doctor's details ");
+        System.out.println("3. Remove doctor ");
+        System.out.println("4. View all doctors ");
+        System.out.println("5. Log out ");
+        System.out.println("---------------------------------");
+        System.out.println("6. Exit ");
+        option = scanner.nextInt();
+        switch (option) {
+            case 1:
+
+                System.out.println("Please enter an information about a new doctor: ");
+
+                System.out.print("Full name: ");
+
+                scanner.nextLine();
+
+                String name = scanner.nextLine();
+
+                System.out.print("Age: ");
+                int age = scanner.nextInt();
+
+                System.out.print("Years of experience: ");
+                int exp_years = scanner.nextInt();
+
+                scanner.nextLine();
+
+                System.out.print("Name of Department");
+                String department = scanner.nextLine();
+
+                while(!departments1.contains(department)){
+                    System.out.println("Invalid department. Input a correct department name or check a list of existent departments");
+                    department = scanner.nextLine();
+                }
+                ArrayList<Patient> newDoctorsPatients = new ArrayList<>();
+                h1.hireDoctor(name, age, exp_years, department, newDoctorsPatients);
+                manageDoctors();
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+                System.out.println("Please enter an information about a new doctor: ");
+
+                System.out.print("Full name: ");
+                scanner.nextLine();
+                String doctorToFire = scanner.nextLine();
+                h1.fireDoctor(doctorToFire);
+                manageDoctors();
+                break;
+
+            case 4:
+                System.out.println("Do you want to sort by Experience, Age or Name? ");
+                scanner.nextLine();
+                String typeOfSorting = scanner.nextLine();
+                h1.sortDoctors(typeOfSorting);
+                break;
+
+            case 5:
+                drawMenu();
+                break;
+
+            case 6:
+
+                break;
+
+            default:
+                System.out.println("Invalid Value");
+                manageDoctors();
+
+        }
+
+    }
+
+    public static void managePatients() {
+
+    }
+
+    public static void manageDepartments() {
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Add department");
+        System.out.println("2. Edit department details ");
+        System.out.println("3. Remove department ");
+        System.out.println("4. View all departments");
+        System.out.println("5. Log out ");
+        System.out.println("---------------------------------");
+        System.out.println("6. Exit ");
+        option = scanner.nextInt();
+
+        switch (option){
+            case 1:
+                System.out.println("Enter a name of new Department: ");
+                scanner.nextLine();
+                String nameOfNewDepartment = scanner.nextLine();
+                h1.addDepartment(nameOfNewDepartment);
+                manageDepartments();
+                break;
+
+            case 2:
+                ;
+                break;
+
+            case 3:
+                System.out.println("Enter a name of a former Department: ");
+                scanner.nextLine();
+                String nameOfFormerDepartment = scanner.nextLine();
+                h1.removeDepartment(nameOfFormerDepartment);
+                manageDepartments();
+                break;
+
+            case 4:
+                manageAppointments();
+                break;
+
+            case 5:
+                drawMenu();
+                break;
+
+            case 6:
+                break;
+
+            default:
+                System.out.println("Invalid Value");
+                drawAdminOptions();
+        }
+    }
+
+    public static void manageAppointments() {
+
+    }
 }

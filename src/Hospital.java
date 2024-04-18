@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Hospital {
     //Attributes
@@ -62,5 +63,63 @@ public class Hospital {
             doctors.remove(d);
             System.out.println("Dr. " + d.getName() + " was fired");
         }
+    }
+
+    public void fireDoctor(String doctorToFire) {
+
+        for (int i = 0; i<doctors.size(); i++ ) {
+            Doctor doctor = doctors.get(i);
+            if(doctor.getName().equals(doctorToFire)){
+                doctors.remove(doctor);
+                System.out.println("Dr. " + doctor.getName() + " was fired");
+            }
+        }
+        System.out.println("Dr. " + doctorToFire + " has not been founded. Ensure that entered name is correct and person you want to fire exists.");
+    }
+    public void sortDoctors(String sortingAttribute){
+        ArrayList<Doctor> sortedDoctors = new ArrayList<>(doctors);
+        if(sortingAttribute.equalsIgnoreCase("experience")) {
+            for(int i = 0; i < doctors.size(); i++){
+                for(int j = doctors.size() - 1; j>=i; j--){
+                    if(sortedDoctors.get(i).getExperience_years()>sortedDoctors.get(j).getExperience_years()){
+                        Doctor temp = sortedDoctors.get(i);
+                        sortedDoctors.set(i, sortedDoctors.get(j));
+                        sortedDoctors.set(j, temp);
+                    }
+                }
+            }
+            System.out.println("Sorted doctors list: \n" + sortedDoctors);
+        } else if (sortingAttribute.equalsIgnoreCase("age")) {
+            for(int i = 0; i < doctors.size(); i++){
+                for(int j = doctors.size() - 1; j>=i; j--){
+                    if(sortedDoctors.get(i).getAge()>sortedDoctors.get(j).getAge()){
+                        Doctor temp = sortedDoctors.get(i);
+                        sortedDoctors.set(i, sortedDoctors.get(j));
+                        sortedDoctors.set(j, temp);
+                    }
+                }
+            }
+            System.out.println("Sorted doctors list: \n" + sortedDoctors);
+        } else if (sortingAttribute.equalsIgnoreCase("name")) {
+            for(int i = 0; i < doctors.size(); i++){
+                for(int j = doctors.size() - 1; j>=i; j--){
+                    if(sortedDoctors.get(i).getName().charAt(0)>sortedDoctors.get(j).getName().charAt(0)){
+                        Doctor temp = sortedDoctors.get(i);
+                        sortedDoctors.set(i, sortedDoctors.get(j));
+                        sortedDoctors.set(j, temp);
+                    }
+                }
+            }
+            System.out.println("Sorted doctors list: \n" + sortedDoctors);
+        }
+    }
+
+    public void addDepartment(String nameOfNewDepartment){
+        departments.add(nameOfNewDepartment);
+        System.out.println(departments);
+    }
+    public void removeDepartment(String nameOfFormerDepartment){
+        departments.remove(nameOfFormerDepartment);
+        System.out.println(departments);
     }
 }
