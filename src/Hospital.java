@@ -6,13 +6,23 @@ public class Hospital {
 
     private ArrayList<String> departments;
     private ArrayList<Doctor> doctors;
+    private ArrayList<Patient> patients;
 
     //Constructor
     public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments) {
         this.name = name;
         this.departments = departments;
         this.doctors = doctors;
+        patients = new ArrayList<>();
     }
+
+    public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments, ArrayList<Patient> patients) {
+        this.name = name;
+        this.departments = departments;
+        this.doctors = doctors;
+        this.patients = patients;
+    }
+
 
     //Getters
     public String getName() {

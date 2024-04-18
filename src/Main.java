@@ -53,21 +53,21 @@ public class Main {
         System.out.println("4. Exit");
         option = input.nextInt();
 
-        while (option <= 0 || option > 4) {
-            System.out.println("Invalid Value");
-            option = input.nextInt();
-        }
-
-        while (option != 4) {
-            if (option == 1) {
+        switch (option)
+        {
+            case 1:
                 drawPatientOptions();
                 break;
-            } else if (option == 2) {
-
-            } else if (option == 3) {
-                drawAdminOptions();
+            case 2:
                 break;
-            }
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                System.out.println("Invalid Value");
+                drawMenu();
+
         }
 
     }
@@ -86,26 +86,49 @@ public class Main {
         System.out.println("7. Exit");
         option = input.nextInt();
 
-        while (option <= 0 || option > 7) {
-            System.out.println("Invalid Value");
-            option = input.nextInt();
-        }
+//        while (option <= 0 || option > 7) {
+//            System.out.println("Invalid Value");
+//            option = input.nextInt();
+//        }
+//
+//        while (option != 7) {
+//            if (option == 1) {
+//
+//            } else if (option == 2) {
+//
+//            } else if (option == 3) {
+//
+//            } else if (option == 4) {
+//
+//            } else if (option == 5) {
+//
+//            } else if (option == 6) {
+//                drawMenu();
+//                break;
+//            }
+//        }
 
-        while (option != 7) {
-            if (option == 1) {
-
-            } else if (option == 2) {
-
-            } else if (option == 3) {
-
-            } else if (option == 4) {
-
-            } else if (option == 5) {
-
-            } else if (option == 6) {
+        switch(option)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
                 drawMenu();
                 break;
-            }
+            case 7:
+                break;
+            default:
+                System.out.println("Invalid Value");
+                drawPatientOptions();
+
         }
     }
 
