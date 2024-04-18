@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Doctor {
     //Attributes
+    private String log_in;
+    private String password;
     private String name;
     private int age;
     private int experience_years;
@@ -10,7 +12,9 @@ public class Doctor {
     private ArrayList<Appointment> appointments;
 
     //Constructors
-    public Doctor(String name, int age, int experience_years, String department) {
+    public Doctor(String log_in, String password, String name, int age, int experience_years, String department) {
+        this.log_in = log_in;
+        this.password = password;
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
@@ -19,7 +23,9 @@ public class Doctor {
         this.appointments = new ArrayList<>();
     }
 
-    public Doctor(String name, int age, int experience_years, ArrayList<Patient> patients, String department) {
+    public Doctor(String log_in, String password, String name, int age, int experience_years, ArrayList<Patient> patients, String department) {
+        this.log_in = log_in;
+        this.password = password;
         this.name = name;
         this.age = age;
         this.experience_years = experience_years;
@@ -126,8 +132,8 @@ public class Doctor {
             System.out.println("This patient is already registered with Dr. " + this.getName());
     }
 
-    public void addPatient(String name, int age, boolean mc) {
-        Patient p = new Patient(name, age, mc);
+    public void addPatient(String log_in, String password, String name, int age, boolean mc) {
+        Patient p = new Patient(log_in, password, name, age, mc);
         if (!patients.contains(p)) {
             patients.add(p);
             System.out.println("Patient " + p.getName() + "has been put on record to Dr. " + this.getName());

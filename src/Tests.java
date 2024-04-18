@@ -24,8 +24,8 @@ public class Tests {
 
 //      Doctor initialization
 
-        Doctor doctor_1 = new Doctor("Bob", 46, 10, Departments.get(2));
-        Doctor doctor_2 = new Doctor("ROb", 60, 29, Departments.get(6));
+        Doctor doctor_1 = new Doctor("bob_123", "password123","Bob", 46, 10, Departments.get(2));
+        Doctor doctor_2 = new Doctor("rob_123", "password123","ROb", 60, 29, Departments.get(6));
 
         System.out.println("\n----------------- Doctor toString test -----------------\n");
 
@@ -40,8 +40,8 @@ public class Tests {
 
 //      Patient initialization
 
-        Patient patient_1 = new Patient("Clark", 30, false);
-        Patient patient_2 = new Patient("Mark", 32, true, "+3530749128627");
+        Patient patient_1 = new Patient("clark_123", "password123", "Clark", 30, false);
+        Patient patient_2 = new Patient("mark_123", "password123", "Mark", 32, true, "+3530749128627");
 
         System.out.println("\n-----------------Patient toString Test-----------------\n");
         System.out.println(patient_1);
@@ -102,5 +102,28 @@ public class Tests {
 
         doctor_2.prescribe(patient_2, "2004-01-08 04:05:06", prescription, dose, info);
         System.out.println(patient_2.getMedicalHistories());
+
+        System.out.println("\n-----------------Patient displayMedicalHistory Test-----------------\n");
+        patient_2.displayMedicalHistory();
+        patient_2.displayAppointment();
+
+
+        System.out.println("\n-----------------Patient cancelAppointment Test-----------------\n");
+
+        doctor_2.addAppointment("2004-02-08 04:05:06", patient_2);
+        System.out.println(patient_2.cancelAppointment(patient_2.getAppointments().get(1)));
+
+        System.out.println("\n-----------------Hospital fireDoctor Test-----------------\n");
+        hospital_1.fireDoctor(doctor_1);
+
+
+        System.out.println("\n-----------------Hospital sortDoctors by name Test-----------------\n");
+        hospital_1.sortDoctors("experience");
+        System.out.println("\n-----------------Hospital sortDoctors by age Test-----------------\n");
+        hospital_1.sortDoctors("age");
+        System.out.println("\n-----------------Hospital sortDoctors by name Test-----------------\n");
+        hospital_1.sortDoctors("name");
+
+
     }
 }

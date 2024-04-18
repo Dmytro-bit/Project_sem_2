@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Patient {
+    private String log_in;
+    private String password;
     private String name;
     private Integer age;
     private boolean has_medical_card;
@@ -10,7 +12,9 @@ public class Patient {
 
     private ArrayList<Appointment> appointments;
 
-    public Patient(String name, Integer age, boolean has_medical_card) {
+    public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card) {
+        this.log_in = log_in;
+        this.password = password;
         this.name = name;
         this.age = age;
         this.has_medical_card = has_medical_card;
@@ -19,7 +23,9 @@ public class Patient {
 
     }
 
-    public Patient(String name, Integer age, boolean has_medical_card, String phone) {
+    public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card, String phone) {
+        this.log_in = log_in;
+        this.password = password;
         this.name = name;
         this.age = age;
         this.has_medical_card = has_medical_card;
@@ -37,6 +43,13 @@ public class Patient {
     }
 
     // Getters
+    public String getLog_in() {
+        return log_in;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public String getName() {
         return name;
@@ -63,6 +76,14 @@ public class Patient {
     }
 
     // Setters
+    public void setLog_in(String log_in) {
+        this.log_in = log_in;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -85,19 +106,17 @@ public class Patient {
         return "Patient name: " + name + "\tAge: " + age + "\tHas Medical Card: " + has_medical_card;
     }
 
-    public void displayMedicalHistory()
-    {
+    public void displayMedicalHistory() {
         System.out.println(this.medicalHistories);
     }
 
-    public void displayAppointment()
-    {
+    public void displayAppointment() {
         System.out.println(this.appointments);
     }
 
 
     public String changePhoneNumber(String phone) {
-        if (phone.indexOf("+") == 1) {
+        if (phone.indexOf("+") == 0) {
             if (phone.length() > 7 && phone.length() < 15) {
                 return "Success";
             }
@@ -112,15 +131,22 @@ public class Patient {
         }
         return "Error";
     }
+
     public void addAppointment(Appointment a) {
         this.appointments.add(a);
     }
 
-    public void cancelAppointment(Appointment appointment) {  // Make this function
+    public String cancelAppointment(Appointment appointment) {  // Make this function
         if (this.appointments.contains(appointment)) {
             this.appointments.remove(appointment);
             Doctor doctor = appointment.getDoctor();
             doctor.removeAppointment(appointment);
+            return "Success";
         }
+        return "Error";
+    }
+
+    public void changePassword() {
+
     }
 }
