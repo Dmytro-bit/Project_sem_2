@@ -48,6 +48,9 @@ public class Hospital {
         return this.doctors;
     }
 
+    public ArrayList<Patient> getPatients(){
+        return this.patients;
+    }
     public ArrayList<String > getAdminLogIns() {
         return this.adminLogIns;
     }
@@ -60,7 +63,9 @@ public class Hospital {
         this.name = name;
     }
 
-
+    public void setPatients(ArrayList<Patient> patients){
+        this.patients = patients;
+    }
 
     public void setDepartments(ArrayList<String> departments) {
         this.departments = departments;
@@ -154,5 +159,8 @@ public class Hospital {
         System.out.println(departments);
     }
 
+    public void addPatientsToDB(ArrayList<Patient> newPatients){
+        patients.addAll(newPatients);
+    }
 
 }

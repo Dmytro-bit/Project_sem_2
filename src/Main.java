@@ -7,6 +7,7 @@ public class Main {
     public static ArrayList<Doctor> doctors1 = new ArrayList<>();
     public static ArrayList<String> departments1 = new ArrayList<>();
 
+    static  ArrayList<String> patientPasswords, patientLogins, doctorsPasswords, doctorsLogins = new ArrayList<>();
 
     public static Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
 
@@ -26,7 +27,8 @@ public class Main {
 
         patients2.add(p2);
         patients2.add(p5);
-
+        h1.addPatientsToDB(patients1);
+        h1.addPatientsToDB(patients2);
         //Doctors
         Doctor d1 = new Doctor("Roland_123", "password123", "Roland Smith", 45, 15, patients1, "Cardiology");
         Doctor d2 = new Doctor("Roland_123", "password123", "Phillip Johnson", 38, 10, patients2, "Neurology");
@@ -58,9 +60,22 @@ public class Main {
         switch (option)
         {
             case 1:
-                drawPatientOptions();
+                ArrayList<String> patientsLogins = new ArrayList<>();
+                ArrayList<String> patientsPasswords = new ArrayList<>();
+
+                for (Patient patient: h1.getPatients()){
+                    patientsLogins.add(patient.getLog_in());
+                }
+                for (Patient patient: h1.getPatients()){
+                    patientsPasswords.add(patient.getPassword());
+                }
+                if(authorization(patientsLogins, patientsPasswords)){
+                    drawPatientOptions();
+                } else {drawMenu();}
                 break;
             case 2:
+
+                drawDoctorOptions();
                 break;
             case 3:
                 ArrayList<String> adminLogins = h1.getAdminLogIns();
