@@ -74,8 +74,17 @@ public class Main {
                 } else {drawMenu();}
                 break;
             case 2:
-
-                drawDoctorOptions();
+                ArrayList<String> doctorsLogins = new ArrayList<>();
+                ArrayList<String> doctorsPasswords = new ArrayList<>();
+                for (Doctor doctor: h1.getDoctors()){
+                    doctorsLogins.add(doctor.getLog_in());
+                }
+                for (Doctor doctor: h1.getDoctors()){
+                    doctorsPasswords.add(doctor.getPassword());
+                }
+                if(authorization(doctorsLogins, doctorsPasswords)){
+                    drawDoctorOptions();
+                } else {drawMenu();}
                 break;
             case 3:
                 ArrayList<String> adminLogins = h1.getAdminLogIns();

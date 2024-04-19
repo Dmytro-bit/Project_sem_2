@@ -67,7 +67,13 @@ public class Doctor {
     public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
+    public String getLog_in() {
+        return log_in;
+    }
 
+    public String getPassword() {
+        return password;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -87,6 +93,16 @@ public class Doctor {
 
     public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
+    }
+
+
+
+    public void setLog_in(String log_in) {
+        this.log_in = log_in;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
