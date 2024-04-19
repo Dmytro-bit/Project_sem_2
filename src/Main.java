@@ -382,12 +382,12 @@ public class Main {
         return validation(login, password, listOfLogins, listOfPasswords);
     }
     public static boolean validation(String login, String password, ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords) {
+        int loginIndex = listOfLogins.indexOf(login);
 
-
-        if(listOfLogins.contains(login) && listOfPasswords.contains(password)) {
+        if(listOfLogins.contains(login) && listOfPasswords.contains(password) &&  listOfPasswords.get(loginIndex).equals(password)) {
             return  true;
         } else {
-            System.out.println("Unknown login or password");
+            System.out.println("Invalid login or password");
             return false;
         }
 

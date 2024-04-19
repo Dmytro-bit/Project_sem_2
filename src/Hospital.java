@@ -22,7 +22,7 @@ public class Hospital {
         adminLogIns = new ArrayList<>();
         defaultPassword = "qwerty123";
         adminPasswords.add(defaultPassword);
-        adminPasswords.add(defaultPassword);
+        adminPasswords.add("123456t");
         adminLogIns.add("AdamSmith68");
         adminLogIns.add("MarySue70");
     }
