@@ -63,7 +63,9 @@ public class Main {
             case 2:
                 break;
             case 3:
-                if(authorization()){
+                ArrayList<String> adminLogins = h1.getAdminLogIns();
+                ArrayList<String> adminPasswords = h1.getAdminPasswords();
+                if(authorization(adminLogins, adminPasswords)){
                     drawAdminOptions();
                 } else {drawMenu();}
                 break;
@@ -345,7 +347,7 @@ public class Main {
 
     }
 
-    public static boolean authorization() {
+    public static boolean authorization(ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords) {
         System.out.println("Login and password are case-sensible and can contain both letters and digits");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Login: ");
@@ -353,14 +355,12 @@ public class Main {
 
         System.out.println("Password: ");
         String password = scanner.nextLine();
-        return validation(login, password);
+        return validation(login, password, listOfLogins, listOfPasswords);
     }
-    public static boolean validation(String login, String password) {
+    public static boolean validation(String login, String password, ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords) {
 
-        ArrayList<String> adminLogins = h1.getAdminLogIns();
-        ArrayList<String> adminPassword = h1.getAdminPasswords();
 
-        if(adminLogins.contains(login) && adminPassword.contains(password)) {
+        if(listOfLogins.contains(login) && listOfPasswords.contains(password)) {
             return  true;
         } else {
             System.out.println("Unknown login or password");
