@@ -6,6 +6,8 @@ public class Main {
     public static ArrayList<Patient> patients2 = new ArrayList<>();
     public static ArrayList<Doctor> doctors1 = new ArrayList<>();
     public static ArrayList<String> departments1 = new ArrayList<>();
+
+
     public static Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
 
     public static void main(String[] args) {
@@ -61,6 +63,9 @@ public class Main {
             case 2:
                 break;
             case 3:
+                if(authorization()){
+                    drawAdminOptions();
+                } else {drawMenu();}
                 break;
             case 4:
                 break;
@@ -232,7 +237,7 @@ public class Main {
 
                 scanner.nextLine();
 
-                System.out.print("Name of Department");
+                System.out.print("Name of Department ");
                 String department = scanner.nextLine();
 
                 while (!departments1.contains(department)) {
@@ -339,4 +344,30 @@ public class Main {
     public static void manageAppointments() {
 
     }
+
+    public static boolean authorization() {
+        System.out.println("Login and password are case-sensible and can contain both letters and digits");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Login: ");
+        String login = scanner.nextLine();
+
+        System.out.println("Password: ");
+        String password = scanner.nextLine();
+        return validation(login, password);
+    }
+    public static boolean validation(String login, String password) {
+
+        ArrayList<String> adminLogins = h1.getAdminLogIns();
+        ArrayList<String> adminPassword = h1.getAdminPasswords();
+
+        if(adminLogins.contains(login) && adminPassword.contains(password)) {
+            return  true;
+        } else {
+            System.out.println("Unknown login or password");
+            return false;
+        }
+
+
+    }
+
 }

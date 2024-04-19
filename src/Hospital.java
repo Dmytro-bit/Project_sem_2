@@ -8,12 +8,23 @@ public class Hospital {
     private ArrayList<Doctor> doctors;
     private ArrayList<Patient> patients;
 
+    private ArrayList<String> adminPasswords, adminLogIns;
+
+    private String defaultPassword;
+
     //Constructor
     public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments) {
         this.name = name;
         this.departments = departments;
         this.doctors = doctors;
         patients = new ArrayList<>();
+        adminPasswords = new ArrayList<>();
+        adminLogIns = new ArrayList<>();
+        defaultPassword = "qwerty123";
+        adminPasswords.add(defaultPassword);
+        adminPasswords.add(defaultPassword);
+        adminLogIns.add("AdamSmith68");
+        adminLogIns.add("MarySue70");
     }
 
     public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments, ArrayList<Patient> patients) {
@@ -37,10 +48,19 @@ public class Hospital {
         return this.doctors;
     }
 
+    public ArrayList<String > getAdminLogIns() {
+        return this.adminLogIns;
+    }
+
+    public ArrayList<String> getAdminPasswords() {
+        return this.adminPasswords;
+    }
     //Setters
     public void setName(String name) {
         this.name = name;
     }
+
+
 
     public void setDepartments(ArrayList<String> departments) {
         this.departments = departments;
@@ -133,4 +153,6 @@ public class Hospital {
         departments.remove(nameOfFormerDepartment);
         System.out.println(departments);
     }
+
+
 }
