@@ -163,4 +163,20 @@ public class Hospital {
         patients.addAll(newPatients);
     }
 
+    public void addNewPatient(Patient newPatient) {
+        patients.add(newPatient);
+    }
+
+    public void deletePatientFromDB(String patientToDelete) {
+
+        for (int i = 0; i < patients.size(); i++) {
+            Patient patient = patients.get(i);
+            if (patient.getName().equals(patientToDelete)) {
+                patients.remove(patient);
+                System.out.println("Patient " + patient.getName() + " was deleted");
+            }
+        }
+        System.out.println("Patient " + patientToDelete + " has not been founded. Ensure that entered name is correct and person you want to delete exists.");
+    }
+
 }

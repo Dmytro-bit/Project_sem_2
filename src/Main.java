@@ -7,8 +7,6 @@ public class Main {
     public static ArrayList<Doctor> doctors1 = new ArrayList<>();
     public static ArrayList<String> departments1 = new ArrayList<>();
 
-    static  ArrayList<String> patientPasswords, patientLogins, doctorsPasswords, doctorsLogins = new ArrayList<>();
-
     public static Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
 
     public static void main(String[] args) {
@@ -280,7 +278,7 @@ public class Main {
                 break;
 
             case 3:
-                System.out.println("Please enter an information about a new doctor: ");
+                System.out.println("Please enter an information about a doctor you want to remove: ");
 
                 System.out.print("Full name: ");
                 scanner.nextLine();
@@ -313,7 +311,67 @@ public class Main {
     }
 
     public static void managePatients() {
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose Option: ");
+        System.out.println("1. Add patient");
+        System.out.println("2. Edit patient details ");
+        System.out.println("3. Remove patient ");
+        System.out.println("4. View all patients");
+        System.out.println("5. Log out ");
+        System.out.println("---------------------------------");
+        System.out.println("6. Exit ");
+        option = scanner.nextInt();
 
+        switch (option){
+            case 1:
+                addPatientByAdmin();
+                System.out.println("1. Add next patient. \n2.Return to Manage Patients menu.");
+                option = scanner.nextInt();
+                while (option < 1 || option > 2){
+
+                    System.out.println("Invalid value.");
+                    System.out.println("1. Add next patient. \n2.Return to Manage Patients menu.");
+                    option = scanner.nextInt();
+                }
+                while (option == 1){
+                    addPatientByAdmin();
+                    System.out.println("1. Add next patient. \n2.Return to Manage Patients menu.");
+                    option = scanner.nextInt();
+                }
+                if (option == 2) {
+                    managePatients();
+                }
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                System.out.println("Please enter an information about a patient you want to remove: ");
+
+                System.out.print("Full name: ");
+                scanner.nextLine();
+                String patientToDelete = scanner.nextLine();
+                h1.deletePatientFromDB(patientToDelete);
+                managePatients();
+
+                break;
+
+            case 4:
+                System.out.println(h1.getPatients());
+                managePatients();
+                break;
+
+            case 5:
+                drawMenu();
+                break;
+
+            case 6:
+                break;
+
+
+        }
     }
 
     public static void manageDepartments() {
@@ -394,4 +452,40 @@ public class Main {
 
     }
 
+    public static  void addPatientByAdmin(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Input patient data");
+        System.out.println("Login: ");
+        String login = scanner.nextLine();
+
+        System.out.println("Password: ");
+        String password = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Age: ");
+        int age = scanner.nextInt();
+
+        System.out.println("Medical card(yes/no): ");
+        String medCard = scanner.next();
+        scanner.nextLine();
+        boolean medicalCard = false;
+        if(medCard.equalsIgnoreCase("yes")){
+            medicalCard = true;
+        } else if (medCard.equalsIgnoreCase("no")) {
+            medicalCard = false;
+        } else {
+            System.out.println("Invalid answer. Enter 'yes' or 'no':");
+            medCard = scanner.next();
+        }
+
+        System.out.println("Phone: ");
+        String phone = scanner.nextLine();
+
+        h1.addNewPatient(new Patient(login, password, name, age, medicalCard, phone));
+
+    }
 }

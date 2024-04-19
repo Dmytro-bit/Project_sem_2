@@ -12,6 +12,17 @@ public class Patient {
 
     private ArrayList<Appointment> appointments;
 
+    public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card, String phone) {
+        this.log_in = log_in;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.has_medical_card = has_medical_card;
+        this.phone = phone;
+        this.appointments = new ArrayList<>();
+        this.medicalHistories = new ArrayList<>();
+    }
+
     public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card) {
         this.log_in = log_in;
         this.password = password;
@@ -23,16 +34,6 @@ public class Patient {
 
     }
 
-    public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card, String phone) {
-        this.log_in = log_in;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.has_medical_card = has_medical_card;
-        this.phone = phone;
-        this.appointments = new ArrayList<>();
-        this.medicalHistories = new ArrayList<>();
-    }
 
     public Patient() {
         this.name = "";
