@@ -7,6 +7,7 @@ public class Patient {
     private Integer age;
     private boolean has_medical_card;
     private String phone;
+    private boolean isRegistered;
 
     private ArrayList<MedicalHistory> medicalHistories;
 
@@ -19,6 +20,19 @@ public class Patient {
         this.age = age;
         this.has_medical_card = has_medical_card;
         this.phone = phone;
+        this.isRegistered = false;
+        this.appointments = new ArrayList<>();
+        this.medicalHistories = new ArrayList<>();
+    }
+
+    public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card, String phone, boolean isRegistered) {
+        this.log_in = log_in;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.has_medical_card = has_medical_card;
+        this.phone = phone;
+        this.isRegistered = isRegistered;
         this.appointments = new ArrayList<>();
         this.medicalHistories = new ArrayList<>();
     }
@@ -29,10 +43,14 @@ public class Patient {
         this.name = name;
         this.age = age;
         this.has_medical_card = has_medical_card;
+        this.phone = "";
+        this.isRegistered = false;
         this.appointments = new ArrayList<>();
         this.medicalHistories = new ArrayList<>();
 
     }
+
+
 
 
     public Patient() {
@@ -40,6 +58,7 @@ public class Patient {
         this.age = 0;
         this.has_medical_card = false;
         this.phone = "";
+        this.isRegistered = false;
         this.medicalHistories = new ArrayList<>();
     }
 
@@ -68,6 +87,8 @@ public class Patient {
         return phone;
     }
 
+    public boolean getIsRegistered() { return isRegistered; }
+
     public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
@@ -93,6 +114,9 @@ public class Patient {
         this.age = age;
     }
 
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public void setIsRegistered(boolean isRegistered) { this.isRegistered = isRegistered; }
     public void setHas_medical_card(boolean has_medical_card) {
         this.has_medical_card = has_medical_card;
     }

@@ -160,21 +160,28 @@ public class Doctor {
         if (!patients.contains(p)) {
             patients.add(p);
             System.out.println("Patient " + p.getName() + "has been put on record to Dr. " + this.getName());
-        } else
-            System.out.println("This patient is already registered with Dr. " + this.getName());
+        }
     }
 
     public void deletePatient(Patient p) {
-        if (patients.contains(p)) {
-            for (int i = 0; i < this.appointments.size(); i++) {
-                if (appointments.get(i).getDoctor() == this && appointments.get(i).getPatient() == p) {
-                    appointments.remove(i);
+        if(patients.size() > 0)
+        {
+            if (patients.contains(p)) {
+                for (int i = 0; i < this.appointments.size(); i++) {
+                    if (appointments.get(i).getDoctor() == this && appointments.get(i).getPatient() == p) {
+                        appointments.remove(i);
+                    }
                 }
-            }
-            patients.remove(p);
-            System.out.println("Patient " + p.getName() + " has been deleted from Dr. " + this.getName() + "'s register");
-        } else
-            System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
+                patients.remove(p);
+                p.setIsRegistered(false);
+                System.out.println("Patient " + p.getName() + " has been deleted from Dr. " + this.getName() + "'s register");
+            } else
+                System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
+        }
+        else
+        {
+            System.out.println("No patients to be deleted");
+        }
     }
 
     public void removeAppointment(Appointment a) {

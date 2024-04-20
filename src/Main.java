@@ -16,11 +16,11 @@ public class Main {
 
     public static void main(String[] args) {
         //Patients
-        Patient p1 = new Patient("john_123", "password1", "John Doe", 35, true, "085-456-7890");
-        Patient p2 = new Patient("jane_123", "password2", "Jane Smith", 28, false, "086-654-3210");
-        Patient p3 = new Patient("alice_123", "password3", "Alice Johnson", 42, true, "086-555-5555");
-        Patient p4 = new Patient("bob_123", "password4", "Bob Brown", 50, false, "087-222-3333");
-        Patient p5 = new Patient("Emily_123", "password5", "Emily Davis", 20, true, "085-444-4444");
+        Patient p1 = new Patient("john_123", "password1", "John Doe", 35, true, "085-456-7890", true);
+        Patient p2 = new Patient("jane_123", "password2", "Jane Smith", 28, false, "086-654-3210", true);
+        Patient p3 = new Patient("alice_123", "password3", "Alice Johnson", 42, true, "086-555-5555", true);
+        Patient p4 = new Patient("bob_123", "password4", "Bob Brown", 50, false, "087-222-3333", true);
+        Patient p5 = new Patient("Emily_123", "password5", "Emily Davis", 20, true, "085-444-4444", true);
 
 
         patients1.add(p1);
@@ -150,48 +150,56 @@ public class Main {
                 drawPatientOptions(currentPatient);
                 break;
             case 4:
-                input.nextLine();
-                int chooseDoctor;
-                Doctor d;
-                String date;
-                String time;
-                String datetime;
-                System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
-                System.out.println("Ensure, you scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
-                System.out.println("\nEnter the date of your appointment: ");
-                date = input.nextLine();
-                System.out.println("\nEnter the time of your appointment: ");
-                time = input.nextLine();
-
-                datetime = date+" "+time;
-
-                while(!datetimeValidation(datetime))
+                if(currentPatient.getIsRegistered())
                 {
-                    System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+
+                    input.nextLine();
+                    int chooseDoctor;
+                    Doctor d;
+                    String date;
+                    String time;
+                    String datetime;
+                    System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
+                    System.out.println("Ensure, you scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
                     System.out.println("\nEnter the date of your appointment: ");
                     date = input.nextLine();
                     System.out.println("\nEnter the time of your appointment: ");
                     time = input.nextLine();
 
                     datetime = date+" "+time;
-                }
 
-                System.out.println("\nPlease, choose your doctor from the list: ");
-                h1.displayDoctors();
-                chooseDoctor = input.nextInt();
+                    while(!datetimeValidation(datetime))
+                    {
+                        System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+                        System.out.println("\nEnter the date of your appointment: ");
+                        date = input.nextLine();
+                        System.out.println("\nEnter the time of your appointment: ");
+                        time = input.nextLine();
 
-                while(chooseDoctor < 1 || chooseDoctor > h1.getDoctors().size())
-                {
-                    System.out.println("\nInvalid Option");
-                    System.out.println("Please, choose your doctor from the list: ");
+                        datetime = date+" "+time;
+                    }
+
+                    System.out.println("\nPlease, choose your doctor from the list: ");
                     h1.displayDoctors();
                     chooseDoctor = input.nextInt();
-                }
 
-                d = h1.getDoctors().get(chooseDoctor-1);
-                Appointment a = new Appointment(datetime, d, currentPatient);
-                currentPatient.addAppointment(d, a);
-                drawPatientOptions(currentPatient);
+                    while(chooseDoctor < 1 || chooseDoctor > h1.getDoctors().size())
+                    {
+                        System.out.println("\nInvalid Option");
+                        System.out.println("Please, choose your doctor from the list: ");
+                        h1.displayDoctors();
+                        chooseDoctor = input.nextInt();
+                    }
+
+                    d = h1.getDoctors().get(chooseDoctor-1);
+                    Appointment a = new Appointment(datetime, d, currentPatient);
+                    currentPatient.addAppointment(d, a);
+                    drawPatientOptions(currentPatient);
+                }
+                else
+                {
+                    System.out.println("You are not registered with any doctor");
+                }
                 break;
             case 5:
                 int chooseAppointment;
@@ -289,8 +297,48 @@ public class Main {
                 }
                 break;
             case 6:
+                input.nextLine();
+                String name;
+                boolean added = false;
+                System.out.println("Please, enter the name of the patient you want to add to your register: ");
+                name = input.nextLine();
+
+                for(Patient patient : h1.getPatients())
+                {
+                    if(patient.getName().equals(name) && !patient.getIsRegistered())
+                    {
+                        currentDoctor.addPatient(patient);
+                        patient.setIsRegistered(true);
+                        added = true;
+                        System.out.println("Patient "+patient.getName()+" has been successfully added to your patient list\n");
+                        break;
+                    }
+                }
+
+                if(!added)
+                    System.out.println("This patient is not registered in this clinic or is on record with another doctor\n");
+
+                drawDoctorOptions(currentDoctor);
                 break;
             case 7:
+                int patientOption;
+                System.out.println("Please, select patient to be removed from your record");
+                System.out.println(currentDoctor.getPatients());
+                patientOption = input.nextInt();
+
+                while(patientOption < 1 || patientOption > currentDoctor.getPatients().size())
+                {
+                    System.out.println("\nInvalid Option");
+                    System.out.println("\nPlease, select patient to be removed from your record");
+                    System.out.println(currentDoctor.getPatients());
+                    patientOption = input.nextInt();
+                }
+
+                Patient p1 = currentDoctor.getPatients().get(patientOption-1);
+                currentDoctor.deletePatient(p1);
+
+                System.out.println();
+                drawDoctorOptions(currentDoctor);
                 break;
             case 8:
                 break;
