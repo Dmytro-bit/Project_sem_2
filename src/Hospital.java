@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Hospital {
     //Attributes
@@ -126,44 +128,121 @@ public class Hospital {
         System.out.println("Dr. " + doctorToFire + " has not been founded. Ensure that entered name is correct and person you want to fire exists.");
     }
 
-    public void sortDoctors(String sortingAttribute) {
-        ArrayList<Doctor> sortedDoctors = new ArrayList<>(doctors);
+    /*public void sortDoctors(String sortingAttribute) {
+        ArrayList<Doctor> unsortedDoctors = new ArrayList<>(doctors);
         if (sortingAttribute.equalsIgnoreCase("experience")) {
-            for (int i = 0; i < doctors.size(); i++) {
-                for (int j = doctors.size() - 1; j >= i; j--) {
-                    if (sortedDoctors.get(i).getExperience_years() > sortedDoctors.get(j).getExperience_years()) {
-                        Doctor temp = sortedDoctors.get(i);
-                        sortedDoctors.set(i, sortedDoctors.get(j));
-                        sortedDoctors.set(j, temp);
-                    }
-                }
+            ArrayList<Integer> experience_list = new ArrayList<>();
+            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
+            for (Doctor doctor: unsortedDoctors) {
+                experience_list.add(doctor.getExperience_years());
+                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
             }
+            ArrayList<Integer> backup = new ArrayList<>(experience_list);
+            ArrayList<Integer> sortedIndexes = new ArrayList<>();
+
+            Collections.sort(experience_list);
+            for (Integer exp_index: experience_list) {
+                sortedIndexes.add(backup.indexOf(exp_index));
+            }
+            System.out.println("Unsorted indexes: " + unsortedIndexes);
+            System.out.println("sorted indexes: " + sortedIndexes);
+            System.out.println("Unsorted doctors: " + unsortedDoctors);
+            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
+
+            for (int i = 0; i < unsortedDoctors.size(); i++) {
+                int sorted_index = sortedIndexes.get(i);
+                sortedDoctors.add(unsortedDoctors.get(sorted_index));
+            }
+
             System.out.println("Sorted doctors list: \n" + sortedDoctors);
         } else if (sortingAttribute.equalsIgnoreCase("age")) {
-            for (int i = 0; i < doctors.size(); i++) {
-                for (int j = doctors.size() - 1; j >= i; j--) {
-                    if (sortedDoctors.get(i).getAge() > sortedDoctors.get(j).getAge()) {
-                        Doctor temp = sortedDoctors.get(i);
-                        sortedDoctors.set(i, sortedDoctors.get(j));
-                        sortedDoctors.set(j, temp);
-                    }
-                }
+            ArrayList<Integer> age_list = new ArrayList<>();
+            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
+            for (Doctor doctor: unsortedDoctors) {
+                age_list.add(doctor.getAge());
+                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
             }
-            System.out.println("Sorted doctors list: \n" + sortedDoctors);
+            ArrayList<Integer> backup = new ArrayList<>(age_list);
+            ArrayList<Integer> sortedIndexes = new ArrayList<>();
+
+            Collections.sort(age_list);
+            for (Integer age_index: age_list) {
+                sortedIndexes.add(backup.indexOf(age_index));
+            }
+            System.out.println("Unsorted indexes: " + unsortedIndexes);
+            System.out.println("sorted indexes: " + sortedIndexes);
+            System.out.println("Unsorted doctors: " + unsortedDoctors);
+            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
+
+            for (int i = 0; i < unsortedDoctors.size(); i++) {
+                int sorted_index = sortedIndexes.get(i);
+                sortedDoctors.add(unsortedDoctors.get(sorted_index));
+            }
+            System.out.println("Sorted doctors list: \n" + sortedDoctors );
         } else if (sortingAttribute.equalsIgnoreCase("name")) {
-            for (int i = 0; i < doctors.size(); i++) {
-                for (int j = doctors.size() - 1; j >= i; j--) {
-                    if (sortedDoctors.get(i).getName().charAt(0) > sortedDoctors.get(j).getName().charAt(0)) {
-                        Doctor temp = sortedDoctors.get(i);
-                        sortedDoctors.set(i, sortedDoctors.get(j));
-                        sortedDoctors.set(j, temp);
-                    }
-                }
+            ArrayList<String> name_list = new ArrayList<>();
+            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
+            for (Doctor doctor: unsortedDoctors) {
+                name_list.add(doctor.getName());
+                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
+            }
+            ArrayList<String> backup = new ArrayList<>(name_list);
+            ArrayList<Integer> sortedIndexes = new ArrayList<>();
+
+            Collections.sort(name_list);
+            for (String name_index: name_list) {
+                sortedIndexes.add(backup.indexOf(name_index));
+            }
+            System.out.println("Unsorted indexes: " + unsortedIndexes);
+            System.out.println("sorted indexes: " + sortedIndexes);
+            System.out.println("Unsorted doctors: " + unsortedDoctors);
+            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
+
+            for (int i = 0; i < unsortedDoctors.size(); i++) {
+                int sorted_index = sortedIndexes.get(i);
+                sortedDoctors.add(unsortedDoctors.get(sorted_index));
             }
             System.out.println("Sorted doctors list: \n" + sortedDoctors);
         }
-    }
+    } */
 
+    public void sortDoctors(String sortBy) {
+        ArrayList<Doctor> sortedDoctors = new ArrayList<>(doctors);
+        switch (sortBy.toLowerCase()) {
+            case "experience":
+                Collections.sort(sortedDoctors, new Comparator<Doctor>() {
+                    @Override
+                    public int compare(Doctor o1, Doctor o2) {
+                        return Integer.compare(o1.getExperience_years(), o2.getExperience_years());
+                    }
+                });
+                break;
+            case "name":
+                Collections.sort(sortedDoctors, new Comparator<Doctor>() {
+                    @Override
+                    public int compare(Doctor o1, Doctor o2) {
+                        return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+                    }
+                });
+                break;
+            case "age":
+                Collections.sort(sortedDoctors, new Comparator<Doctor>() {
+                    @Override
+                    public int compare(Doctor o1, Doctor o2) {
+                        return Integer.compare(o1.getAge(), o2.getAge());
+                    }
+                });
+                break;
+            case "none":
+                break;
+            default:
+                System.out.println("Invalid sorting parameter. Please enter 'name', 'age', 'experience' or 'none'");
+                break;
+        }
+        System.out.println("List of Doctors: " + sortedDoctors);
+
+
+    }
     public void addDepartment(String nameOfNewDepartment) {
         departments.add(nameOfNewDepartment);
         System.out.println(departments);

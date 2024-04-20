@@ -379,10 +379,11 @@ public class Main {
                 break;
 
             case 4:
-                System.out.println("Do you want to sort by Experience, Age or Name? ");
+                System.out.println("Do you want to sort doctors by 'experience', 'age' or 'name'? Enter 'none' to show unsorted list. ");
                 scanner.nextLine();
                 String typeOfSorting = scanner.nextLine();
                 h1.sortDoctors(typeOfSorting);
+                manageDoctors();
                 break;
 
             case 5:
@@ -500,7 +501,7 @@ public class Main {
                 break;
 
             case 4:
-                manageAppointments();
+                System.out.println(h1.getDepartments());
                 break;
 
             case 5:
