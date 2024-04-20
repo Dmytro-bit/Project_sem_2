@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Hospital {
     //Attributes
     private String name;
-
+    private String workingHours;
     private ArrayList<String> departments;
     private ArrayList<Doctor> doctors;
     private ArrayList<Patient> patients;
@@ -13,8 +13,9 @@ public class Hospital {
     private String defaultPassword;
 
     //Constructor
-    public Hospital(String name, ArrayList<Doctor> doctors, ArrayList<String> departments) {
+    public Hospital(String name, String workingHours, ArrayList<Doctor> doctors, ArrayList<String> departments) {
         this.name = name;
+        this.workingHours = workingHours;
         this.departments = departments;
         this.doctors = doctors;
         patients = new ArrayList<>();
@@ -40,6 +41,10 @@ public class Hospital {
         return this.name;
     }
 
+    public String getWorkingHours() {
+        return workingHours;
+    }
+
     public ArrayList<String> getDepartments() {
         return this.departments;
     }
@@ -63,6 +68,10 @@ public class Hospital {
         this.name = name;
     }
 
+    public void setWorkingHours(String workingHours) {
+        this.workingHours = workingHours;
+    }
+
     public void setPatients(ArrayList<Patient> patients){
         this.patients = patients;
     }
@@ -81,6 +90,12 @@ public class Hospital {
     }
 
     //Methods
+    public void displayDoctors()
+    {
+        for(Doctor d : doctors)
+            System.out.println(d);
+    }
+
     public void hireDoctor(Doctor d) {
         doctors.add(d);
         System.out.println("Dr. " + d.getName() + " was hired");

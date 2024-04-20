@@ -31,6 +31,7 @@ public class Doctor {
         this.experience_years = experience_years;
         this.patients = patients;
         this.department = department;
+        this.appointments = new ArrayList<>();
     }
 
     public Doctor() {

@@ -1,3 +1,6 @@
+import com.sun.net.httpserver.Authenticator;
+
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,16 +9,18 @@ public class Main {
     public static ArrayList<Patient> patients2 = new ArrayList<>();
     public static ArrayList<Doctor> doctors1 = new ArrayList<>();
     public static ArrayList<String> departments1 = new ArrayList<>();
+    public static Patient currentPatient;
+    public static Doctor currentDoctor;
 
-    public static Hospital h1 = new Hospital("St James's Hospital", doctors1, departments1);
+    public static Hospital h1 = new Hospital("St James's Hospital","08:00-20:00", doctors1, departments1);
 
     public static void main(String[] args) {
         //Patients
-        Patient p1 = new Patient("john_123", "password123", "John Doe", 35, true, "085-456-7890");
-        Patient p2 = new Patient("jane_123", "password123", "Jane Smith", 28, false, "086-654-3210");
-        Patient p3 = new Patient("alice_123", "password123", "Alice Johnson", 42, true, "086-555-5555");
-        Patient p4 = new Patient("bob_123", "password123", "Bob Brown", 50, false, "087-222-3333");
-        Patient p5 = new Patient("Emily_123", "password123", "Emily Davis", 20, true, "085-444-4444");
+        Patient p1 = new Patient("john_123", "password1", "John Doe", 35, true, "085-456-7890");
+        Patient p2 = new Patient("jane_123", "password2", "Jane Smith", 28, false, "086-654-3210");
+        Patient p3 = new Patient("alice_123", "password3", "Alice Johnson", 42, true, "086-555-5555");
+        Patient p4 = new Patient("bob_123", "password4", "Bob Brown", 50, false, "087-222-3333");
+        Patient p5 = new Patient("Emily_123", "password5", "Emily Davis", 20, true, "085-444-4444");
 
 
         patients1.add(p1);
@@ -28,14 +33,14 @@ public class Main {
         h1.addPatientsToDB(patients1);
         h1.addPatientsToDB(patients2);
         //Doctors
-        Doctor d1 = new Doctor("Roland_123", "password123", "Roland Smith", 45, 15, patients1, "Cardiology");
-        Doctor d2 = new Doctor("Roland_123", "password123", "Phillip Johnson", 38, 10, patients2, "Neurology");
+        Doctor d1 = new Doctor("Roland_123", "password1", "Roland Smith", 45, 15, patients1, "Cardiology");
+        Doctor d2 = new Doctor("Phillip_123", "password2", "Phillip Johnson", 38, 10, patients2, "Neurology");
 
 
         doctors1.add(d1);
         doctors1.add(d2);
 
-        //Hospitals
+        //Departments
 
         departments1.add("Cardiology");
         departments1.add("Neurology");
@@ -67,8 +72,8 @@ public class Main {
                 for (Patient patient: h1.getPatients()){
                     patientsPasswords.add(patient.getPassword());
                 }
-                if(authorization(patientsLogins, patientsPasswords)){
-                    drawPatientOptions();
+                if(authorization(patientsLogins, patientsPasswords, "patient")){
+                    drawPatientOptions(currentPatient);
                 } else {drawMenu();}
                 break;
             case 2:
@@ -80,14 +85,14 @@ public class Main {
                 for (Doctor doctor: h1.getDoctors()){
                     doctorsPasswords.add(doctor.getPassword());
                 }
-                if(authorization(doctorsLogins, doctorsPasswords)){
-                    drawDoctorOptions();
+                if(authorization(doctorsLogins, doctorsPasswords, "doctor")){
+                    drawDoctorOptions(currentDoctor);
                 } else {drawMenu();}
                 break;
             case 3:
                 ArrayList<String> adminLogins = h1.getAdminLogIns();
                 ArrayList<String> adminPasswords = h1.getAdminPasswords();
-                if(authorization(adminLogins, adminPasswords)){
+                if(authorization(adminLogins, adminPasswords, "administrator")){
                     drawAdminOptions();
                 } else {drawMenu();}
                 break;
@@ -101,7 +106,7 @@ public class Main {
 
     }
 
-    public static void drawPatientOptions() {
+    public static void drawPatientOptions(Patient p) {
         int option = 0;
         Scanner input = new Scanner(System.in);
         System.out.println("Choose Option: ");
@@ -115,39 +120,94 @@ public class Main {
         System.out.println("7. Exit");
         option = input.nextInt();
 
-//        while (option <= 0 || option > 7) {
-//            System.out.println("Invalid Value");
-//            option = input.nextInt();
-//        }
-//
-//        while (option != 7) {
-//            if (option == 1) {
-//
-//            } else if (option == 2) {
-//
-//            } else if (option == 3) {
-//
-//            } else if (option == 4) {
-//
-//            } else if (option == 5) {
-//
-//            } else if (option == 6) {
-//                drawMenu();
-//                break;
-//            }
-//        }
 
         switch(option)
         {
             case 1:
+                System.out.println(currentPatient);
+                drawPatientOptions(currentPatient);
                 break;
             case 2:
+                String phone;
+                System.out.println("Please note, the phone number should begin with '+', be no shorter then 7 and no longer then 15");
+                System.out.println("Please, enter a new phone number");
+                input.nextLine();
+                phone = input.nextLine();
+                currentPatient.changePhoneNumber(phone);
+                while(currentPatient.changePhoneNumber(phone) != "Success")
+                {
+                    System.out.println("Invalid Phone Number.\nPlease, ensure you have followed the rules noted above and try again: ");
+                    System.out.println("Please, enter a new phone number");
+                    phone = input.nextLine();
+                    currentPatient.changePhoneNumber(phone);
+                }
+                System.out.println(currentPatient.changePhoneNumber(phone));
+                drawPatientOptions(currentPatient);
                 break;
             case 3:
+                currentPatient.displayAppointment();
+                drawPatientOptions(currentPatient);
                 break;
             case 4:
+                input.nextLine();
+                int chooseDoctor;
+                Doctor d;
+                String date;
+                String time;
+                String datetime;
+                System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
+                System.out.println("Ensure, you scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
+                System.out.println("Enter the date of your appointment: ");
+                date = input.nextLine();
+                System.out.println("Enter the time of your appointment: ");
+                time = input.nextLine();
+
+                datetime = date+" "+time;
+
+                while(!datetimeValidation(datetime))
+                {
+                    System.out.println("Invalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+                    System.out.println("Enter the date of your appointment: ");
+                    date = input.nextLine();
+                    System.out.println("Enter the time of your appointment: ");
+                    time = input.nextLine();
+
+                    datetime = date+" "+time;
+                }
+
+                System.out.println("Please, choose the doctor from the list: ");
+                h1.displayDoctors();
+                chooseDoctor = input.nextInt();
+
+                while(chooseDoctor < 1 || chooseDoctor > h1.getDoctors().size())
+                {
+                    System.out.println("Invalid Option");
+                    System.out.println("Please, choose the doctor from the list: ");
+                    h1.displayDoctors();
+                    chooseDoctor = input.nextInt();
+                }
+
+                d = h1.getDoctors().get(chooseDoctor-1);
+                Appointment a = new Appointment(datetime, d, currentPatient);
+                currentPatient.addAppointment(d, a);
+                drawPatientOptions(currentPatient);
                 break;
             case 5:
+                int chooseAppointment;
+                System.out.println("Please, choose the appointment you would like to cancel from the list below: ");
+                currentPatient.displayAppointment();
+                chooseAppointment = input.nextInt();
+
+                while(chooseAppointment < 1 || chooseAppointment > currentPatient.getAppointments().size())
+                {
+                    System.out.println("Invalid Option");
+                    System.out.println("Please, choose the appointment you would like to cancel from the list below: ");
+                    chooseAppointment = input.nextInt();
+                }
+
+                Appointment appointment = currentPatient.getAppointments().get(chooseAppointment-1);
+                currentPatient.cancelAppointment(appointment);
+                drawPatientOptions(currentPatient);
                 break;
             case 6:
                 drawMenu();
@@ -156,12 +216,12 @@ public class Main {
                 break;
             default:
                 System.out.println("Invalid Value");
-                drawPatientOptions();
+                drawPatientOptions(currentPatient);
 
         }
     }
 
-    public static void drawDoctorOptions() {
+    public static void drawDoctorOptions(Doctor d) {
         int option = 0;
         Scanner input = new Scanner(System.in);
         System.out.println("Choose Option: ");
@@ -173,9 +233,40 @@ public class Main {
         System.out.println("6. Add Patient");
         System.out.println("7. Remove Patient");
         System.out.println("8. Prescribe");
+        System.out.println("9. <<< Back");
         System.out.println("---------------------------------");
-        System.out.println("9. Exit");
+        System.out.println("10. Exit");
         option = input.nextInt();
+
+        switch(option)
+        {
+            case 1:
+                System.out.println(currentDoctor);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                drawMenu();
+                break;
+            case 10:
+                break;
+            default:
+                System.out.println("Invalid Value");
+                drawDoctorOptions(currentDoctor);
+
+        }
     }
 
     public static void drawAdminOptions() {
@@ -429,7 +520,7 @@ public class Main {
 
     }
 
-    public static boolean authorization(ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords) {
+    public static boolean authorization(ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords, String object) {
         System.out.println("Login and password are case-sensible and can contain both letters and digits");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Login: ");
@@ -437,12 +528,31 @@ public class Main {
 
         System.out.println("Password: ");
         String password = scanner.nextLine();
-        return validation(login, password, listOfLogins, listOfPasswords);
+        return validation(login, password, listOfLogins, listOfPasswords, object);
     }
-    public static boolean validation(String login, String password, ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords) {
+    public static boolean validation(String login, String password, ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords, String object) {
         int loginIndex = listOfLogins.indexOf(login);
 
         if(listOfLogins.contains(login) && listOfPasswords.contains(password) &&  listOfPasswords.get(loginIndex).equals(password)) {
+            switch (object)
+            {
+                case "patient":
+                    for(Patient p: h1.getPatients())
+                    {
+                        if(p.getLog_in().equals(login) && p.getPassword().equals(password))
+                            currentPatient = p;
+                    }
+                    break;
+                case "doctor":
+                    for(Doctor d: h1.getDoctors())
+                    {
+                        if(d.getLog_in().equals(login) && d.getPassword().equals(password))
+                            currentDoctor = d;
+                    }
+                    break;
+                case "administrator":
+                    break;
+            }
             return  true;
         } else {
             System.out.println("Invalid login or password");
@@ -451,6 +561,27 @@ public class Main {
 
 
     }
+
+    public static boolean datetimeValidation(String datetime)
+    {
+        if(datetime.length() == 16)
+        {
+            //date validation
+            String date = datetime.substring(0,10);
+            if(Integer.parseInt(date.substring(0,4)) >= 2024 && Integer.parseInt(date.substring(5,7))>0 && Integer.parseInt(date.substring(5,7))<=12
+                    && Integer.parseInt(date.substring(8,10))>0 && Integer.parseInt(date.substring(8,10))<=31)
+            {
+                //time validation
+                int openTime = Integer.parseInt(h1.getWorkingHours().substring(0,2));
+                int closeTime = Integer.parseInt(h1.getWorkingHours().substring(6,8));
+                String time = datetime.substring(11);
+                return Integer.parseInt(time.substring(0, 2)) >= openTime && Integer.parseInt(time.substring(0, 2)) <= closeTime
+                        && Integer.parseInt(time.substring(3)) >= 0 && Integer.parseInt(time.substring(3)) < 60;
+            }
+        }
+        return false;
+    }
+
 
     public static  void addPatientByAdmin(){
         Scanner scanner = new Scanner(System.in);

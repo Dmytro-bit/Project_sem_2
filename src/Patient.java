@@ -104,7 +104,7 @@ public class Patient {
     // ToString
     @Override
     public String toString() {
-        return "Patient name: " + name + "\tAge: " + age + "\tHas Medical Card: " + has_medical_card;
+        return "Patient name: " + name + "\tAge: " + age + "\tHas Medical Card: " + has_medical_card + "\tPhone: " + phone;
     }
 
     public void displayMedicalHistory() {
@@ -112,13 +112,17 @@ public class Patient {
     }
 
     public void displayAppointment() {
-        System.out.println(this.appointments);
+        if(appointments.size() > 0)
+            System.out.println(this.appointments);
+        else
+            System.out.println("No appointments scheduled");
     }
 
 
     public String changePhoneNumber(String phone) {
         if (phone.indexOf("+") == 0) {
             if (phone.length() > 7 && phone.length() < 15) {
+                this.phone = phone;
                 return "Success";
             }
         }
@@ -128,12 +132,14 @@ public class Patient {
     public String addAppointment(Doctor doctor, Appointment a) {
         if (doctor.getPatients().contains(this)) {
             this.appointments.add(a);
+            doctor.getAppointments().add(a);
             return "Success";
         }
         return "Error";
     }
 
     public void addAppointment(Appointment a) {
+
         this.appointments.add(a);
     }
 

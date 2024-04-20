@@ -17,7 +17,7 @@ public class Tests {
         Departments.add("Neurology Department");
         Departments.add("Orthopedics Department");
 
-        Hospital hospital_1 = new Hospital("Hospital #1", new ArrayList<>(), Departments);
+        Hospital hospital_1 = new Hospital("Hospital #1","08:00-20:00", new ArrayList<>(), Departments);
 
         System.out.println("\n----------------- Hospital toString test -----------------\n");
         System.out.println(hospital_1);
