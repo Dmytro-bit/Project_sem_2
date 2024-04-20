@@ -365,6 +365,7 @@ public class Main {
                 break;
 
             case 2:
+                editDoctorsDetails();
 
                 break;
 
@@ -489,7 +490,6 @@ public class Main {
                 break;
 
             case 2:
-                ;
                 break;
 
             case 3:
@@ -619,5 +619,67 @@ public class Main {
 
         h1.addNewPatient(new Patient(login, password, name, age, medicalCard, phone));
 
+    }
+
+    public static void editDoctorsDetails(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Doctor> doctors = h1.getDoctors();
+        Doctor doctorToEdit = new Doctor();
+        System.out.println("Enter a login of doctor whose details you need to change");
+
+        String input = scanner.next();
+        scanner.nextLine();
+        boolean contains = false;
+        for (Doctor doctor: doctors) {
+            if (input.equals(doctor.getLog_in())) {
+                contains = true;
+                doctorToEdit = doctor;
+                break;
+            }
+        }
+        if(contains){
+
+            System.out.println(doctorToEdit);
+            System.out.println("You can change next details: ");
+            System.out.println("1. Name ");
+            System.out.println("2. Age ");
+            System.out.println("3. Years of practice ");
+            System.out.println("4. Back to manage doctors menu");
+
+            System.out.println("Enter your  choice below: ");
+            int option = scanner.nextInt();
+            switch (option){
+                case 1:
+                    System.out.println("Enter new name");
+                    String newName = scanner.nextLine();
+                    doctorToEdit.setName(newName);
+                    editDoctorsDetails();
+                    break;
+                case 2:
+                    System.out.println("Enter new age");
+                    int newAge = scanner.nextInt();
+                    doctorToEdit.setAge(newAge);
+                    editDoctorsDetails();
+                    break;
+                case 3:
+                    System.out.println("Enter new experience years");
+                    int newExp = scanner.nextInt();
+                    doctorToEdit.setExperience_years(newExp);
+                    editDoctorsDetails();
+                    break;
+                case 4:
+                    manageDoctors();
+                    break;
+                default :
+                    System.out.println("Unexpected value " + option);
+                    editDoctorsDetails();
+                break;
+            }
+
+
+        }else{
+            System.out.println("Invalid login. Try again: ");
+            editDoctorsDetails();
+        }
     }
 }
