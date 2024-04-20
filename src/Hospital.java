@@ -88,14 +88,17 @@ public class Hospital {
 
     @Override
     public String toString() {
-        return "Hospital:\nName: " + this.name + " Departments: " + this.departments + " Doctors: " + this.doctors;
+        return "Hospital:\n\t-Name: " + this.name + "\n\t-Departments: " + this.departments + "\n\t-Doctors: " + this.doctors;
     }
 
     //Methods
     public void displayDoctors()
     {
-        for(Doctor d : doctors)
-            System.out.println(d);
+        int counter = 0;
+        for(Doctor d : doctors){
+            counter++;
+            System.out.println(counter+" "+d);
+        }
     }
 
     public void hireDoctor(Doctor d) {

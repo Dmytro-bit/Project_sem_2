@@ -41,7 +41,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Date and Time: " + this.appointmentTime + "\n" + this.patient + "\n" + this.doctor;
+        return "\nDate and Time: " + this.appointmentTime + "\n" + this.patient + "\n" + this.doctor;
     }
 }
 

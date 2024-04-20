@@ -124,28 +124,29 @@ public class Main {
         switch(option)
         {
             case 1:
-                System.out.println(currentPatient);
+                System.out.println("\n\n\n"+currentPatient+"\n\n\n");
                 drawPatientOptions(currentPatient);
                 break;
             case 2:
                 String phone;
                 System.out.println("Please note, the phone number should begin with '+', be no shorter then 7 and no longer then 15");
-                System.out.println("Please, enter a new phone number");
+                System.out.println("\nPlease, enter a new phone number");
                 input.nextLine();
                 phone = input.nextLine();
                 currentPatient.changePhoneNumber(phone);
-                while(currentPatient.changePhoneNumber(phone) != "Success")
+                while(!currentPatient.changePhoneNumber(phone).equals("Success"))
                 {
-                    System.out.println("Invalid Phone Number.\nPlease, ensure you have followed the rules noted above and try again: ");
-                    System.out.println("Please, enter a new phone number");
+                    System.out.println("\nInvalid Phone Number.\nPlease, ensure you have followed the rules noted above and try again: ");
+                    System.out.println("\nPlease, enter a new phone number");
                     phone = input.nextLine();
                     currentPatient.changePhoneNumber(phone);
                 }
-                System.out.println(currentPatient.changePhoneNumber(phone));
+                System.out.println("\n"+currentPatient.changePhoneNumber(phone)+"\n");
                 drawPatientOptions(currentPatient);
                 break;
             case 3:
                 currentPatient.displayAppointment();
+                System.out.println();
                 drawPatientOptions(currentPatient);
                 break;
             case 4:
@@ -157,32 +158,32 @@ public class Main {
                 String datetime;
                 System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
                 System.out.println("Ensure, you scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
-                System.out.println("Enter the date of your appointment: ");
+                System.out.println("\nEnter the date of your appointment: ");
                 date = input.nextLine();
-                System.out.println("Enter the time of your appointment: ");
+                System.out.println("\nEnter the time of your appointment: ");
                 time = input.nextLine();
 
                 datetime = date+" "+time;
 
                 while(!datetimeValidation(datetime))
                 {
-                    System.out.println("Invalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
-                    System.out.println("Enter the date of your appointment: ");
+                    System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+                    System.out.println("\nEnter the date of your appointment: ");
                     date = input.nextLine();
-                    System.out.println("Enter the time of your appointment: ");
+                    System.out.println("\nEnter the time of your appointment: ");
                     time = input.nextLine();
 
                     datetime = date+" "+time;
                 }
 
-                System.out.println("Please, choose the doctor from the list: ");
+                System.out.println("\nPlease, choose your doctor from the list: ");
                 h1.displayDoctors();
                 chooseDoctor = input.nextInt();
 
                 while(chooseDoctor < 1 || chooseDoctor > h1.getDoctors().size())
                 {
-                    System.out.println("Invalid Option");
-                    System.out.println("Please, choose the doctor from the list: ");
+                    System.out.println("\nInvalid Option");
+                    System.out.println("Please, choose your doctor from the list: ");
                     h1.displayDoctors();
                     chooseDoctor = input.nextInt();
                 }
@@ -200,13 +201,14 @@ public class Main {
 
                 while(chooseAppointment < 1 || chooseAppointment > currentPatient.getAppointments().size())
                 {
-                    System.out.println("Invalid Option");
+                    System.out.println("\nInvalid Option");
                     System.out.println("Please, choose the appointment you would like to cancel from the list below: ");
                     chooseAppointment = input.nextInt();
                 }
 
                 Appointment appointment = currentPatient.getAppointments().get(chooseAppointment-1);
                 currentPatient.cancelAppointment(appointment);
+                System.out.println();
                 drawPatientOptions(currentPatient);
                 break;
             case 6:
@@ -570,14 +572,15 @@ public class Main {
             //date validation
             String date = datetime.substring(0,10);
             if(Integer.parseInt(date.substring(0,4)) >= 2024 && Integer.parseInt(date.substring(5,7))>0 && Integer.parseInt(date.substring(5,7))<=12
-                    && Integer.parseInt(date.substring(8,10))>0 && Integer.parseInt(date.substring(8,10))<=31)
+                    && Integer.parseInt(date.substring(8,10))>0 && Integer.parseInt(date.substring(8,10))<=31 && datetime.charAt(4) == '-' && datetime.charAt(7) == '-')
             {
                 //time validation
                 int openTime = Integer.parseInt(h1.getWorkingHours().substring(0,2));
                 int closeTime = Integer.parseInt(h1.getWorkingHours().substring(6,8));
                 String time = datetime.substring(11);
                 return Integer.parseInt(time.substring(0, 2)) >= openTime && Integer.parseInt(time.substring(0, 2)) <= closeTime
-                        && Integer.parseInt(time.substring(3)) >= 0 && Integer.parseInt(time.substring(3)) < 60;
+                        && Integer.parseInt(time.substring(3)) >= 0 && Integer.parseInt(time.substring(3)) < 60 &&
+                        time.charAt(2) == ':';
             }
         }
         return false;

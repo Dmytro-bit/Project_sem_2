@@ -104,7 +104,7 @@ public class Patient {
     // ToString
     @Override
     public String toString() {
-        return "Patient name: " + name + "\tAge: " + age + "\tHas Medical Card: " + has_medical_card + "\tPhone: " + phone;
+        return "Patient \n\t-Name: " + name + "\n\t-Age: " + age + "\n\t-Has Medical Card: " + has_medical_card + "\n\t-Phone: " + phone;
     }
 
     public void displayMedicalHistory() {
@@ -133,8 +133,10 @@ public class Patient {
         if (doctor.getPatients().contains(this)) {
             this.appointments.add(a);
             doctor.getAppointments().add(a);
+            System.out.println("You have successfully scheduled an appointment with Dr. "+doctor.getName()+"\n");
             return "Success";
         }
+        System.out.println("You are not registered with this doctor");
         return "Error";
     }
 

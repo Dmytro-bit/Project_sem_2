@@ -108,9 +108,9 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor:\nname: " + this.name +
-                "\nage: " + this.age +
-                "\nYears of Practice: " + this.experience_years;
+        return "Doctor:\n\t-Name: " + this.name +
+                "\n\t-Age: " + this.age +
+                "\n\t-Years of Practice: " + this.experience_years;
     }
 
     public void displayPatients() {
