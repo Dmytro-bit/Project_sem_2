@@ -243,15 +243,50 @@ public class Main {
         switch(option)
         {
             case 1:
-                System.out.println(currentDoctor);
+                System.out.println("\n\n\n"+currentDoctor+"\n\n\n");
+                drawDoctorOptions(currentDoctor);
                 break;
             case 2:
+                System.out.println();
+                currentDoctor.displayPatients();
+                System.out.println();
+                drawDoctorOptions(currentDoctor);
                 break;
             case 3:
+                System.out.println();
+                currentDoctor.displayAppointments();
+                System.out.println();
+                drawDoctorOptions(currentDoctor);
                 break;
             case 4:
                 break;
             case 5:
+                if(currentDoctor.getAppointments().size() > 0)
+                {
+
+                    int chooseAppointment;
+                    System.out.println("Please, choose an appointment you want to cancel");
+                    currentDoctor.displayAppointments();
+                    chooseAppointment = input.nextInt();
+
+                    while(chooseAppointment < 1 || chooseAppointment > currentDoctor.getAppointments().size())
+                    {
+                        System.out.println("\nInvalid Option");
+                        System.out.println("Please, choose an appointment you want to cancel");
+                        chooseAppointment = input.nextInt();
+                    }
+                    System.out.println();
+                    Appointment a = currentPatient.getAppointments().get(chooseAppointment-1);
+                    System.out.println();
+                    currentDoctor.removeAppointment(a);
+                    System.out.println();
+                    drawDoctorOptions(currentDoctor);
+                }
+                else
+                {
+                    System.out.println("\nNo appointments scheduled\n");
+                    drawDoctorOptions(currentDoctor);
+                }
                 break;
             case 6:
                 break;
@@ -543,14 +578,20 @@ public class Main {
                     for(Patient p: h1.getPatients())
                     {
                         if(p.getLog_in().equals(login) && p.getPassword().equals(password))
+                        {
                             currentPatient = p;
+                            System.out.println("Welcome, "+p.getName());
+                        }
                     }
                     break;
                 case "doctor":
                     for(Doctor d: h1.getDoctors())
                     {
                         if(d.getLog_in().equals(login) && d.getPassword().equals(password))
+                        {
                             currentDoctor = d;
+                            System.out.println("Welcome, "+d.getName());
+                        }
                     }
                     break;
                 case "administrator":

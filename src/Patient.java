@@ -104,7 +104,7 @@ public class Patient {
     // ToString
     @Override
     public String toString() {
-        return "Patient \n\t-Name: " + name + "\n\t-Age: " + age + "\n\t-Has Medical Card: " + has_medical_card + "\n\t-Phone: " + phone;
+        return "Patient \n\t-Name: " + name + "\n\t-Age: " + age + "\n\t-Has Medical Card: " + has_medical_card + "\n\t-Phone: " + phone + "\n";
     }
 
     public void displayMedicalHistory() {
@@ -146,12 +146,17 @@ public class Patient {
     }
 
     public String cancelAppointment(Appointment appointment) {  // Make this function
-        if (this.appointments.contains(appointment)) {
-            this.appointments.remove(appointment);
-            Doctor doctor = appointment.getDoctor();
-            doctor.removeAppointment(appointment);
-            return "Success";
+        if(appointments.size() > 1)
+        {
+            if (this.appointments.contains(appointment)) {
+                this.appointments.remove(appointment);
+                Doctor doctor = appointment.getDoctor();
+                doctor.removeAppointment(appointment);
+                return "Success";
+            }
         }
+        else
+            System.out.println("You do not have any appointments scheduled");
         return "Error";
     }
 

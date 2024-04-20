@@ -134,11 +134,17 @@ public class Doctor {
 
     public void displayAppointments() {
         int total = 0;
-        for (Appointment appointment : appointments) {
-            total++;
-            System.out.println(appointment);
+        if(appointments.size() > 0)
+        {
+            for (Appointment appointment : appointments) {
+                total++;
+                System.out.println(appointment);
+            }
+            System.out.println("Total amount of appointments: " + total);
         }
-        System.out.println("Total amount of appointments: " + total);
+        else {
+            System.out.println("No appointments scheduled");
+        }
     }
 
     public void addPatient(Patient p) {
@@ -172,7 +178,10 @@ public class Doctor {
     }
 
     public void removeAppointment(Appointment a) {
-        this.appointments.remove(a);
+        if(appointments.size() > 0)
+            this.appointments.remove(a);
+        else
+            System.out.println("No appointments scheduled");
     }
 
     public void prescribe(Patient p, MedicalHistory mh) {
