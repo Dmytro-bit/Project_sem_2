@@ -360,7 +360,7 @@ public class Main {
         System.out.println("Choose Option: ");
         System.out.println("1. Manage doctors ");
         System.out.println("2. Manage patients ");
-        System.out.println("3. Manage hospitals ");
+        System.out.println("3. Manage departments ");
         System.out.println("4. Appointments Management ");
         System.out.println("5. Log out ");
         System.out.println("---------------------------------");
@@ -401,6 +401,7 @@ public class Main {
     public static void manageDoctors() {
         int option;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Manage doctors");
         System.out.println("Choose Option: ");
         System.out.println("1. Add doctor");
         System.out.println("2. Edit doctor's details ");
@@ -491,6 +492,7 @@ public class Main {
     public static void managePatients() {
         int option;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Manage patients");
         System.out.println("Choose Option: ");
         System.out.println("1. Add patient");
         System.out.println("2. Edit patient details ");
@@ -555,6 +557,7 @@ public class Main {
     public static void manageDepartments() {
         int option;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Manage departments");
         System.out.println("Choose Option: ");
         System.out.println("1. Add department");
         System.out.println("2. Edit department details ");
@@ -575,6 +578,7 @@ public class Main {
                 break;
 
             case 2:
+                editDepartments();
                 break;
 
             case 3:
@@ -603,6 +607,16 @@ public class Main {
     }
 
     public static void manageAppointments() {
+        System.out.println("Manage appointments");
+        System.out.println("Choose Option: ");
+        System.out.println("1. Schedule appointment");
+        System.out.println("2. Reschedule appointment");
+        System.out.println("3. Cancel appointment");
+        System.out.println("4. View all appointments");
+        System.out.println("5. Log out");
+        System.out.println("---------------------------------");
+        System.out.println("6. Exit");
+
 
     }
 
@@ -743,6 +757,7 @@ public class Main {
             switch (option){
                 case 1:
                     System.out.println("Enter new name");
+                    scanner.nextLine();
                     String newName = scanner.nextLine();
                     doctorToEdit.setName(newName);
                     editDoctorsDetails();
@@ -773,5 +788,25 @@ public class Main {
             System.out.println("Invalid login. Try again: ");
             editDoctorsDetails();
         }
+    }
+    public static void editDepartments(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> departments = h1.getDepartments();
+        System.out.println(departments);
+        System.out.println("Enter name of department to  edit or input 'back' to open previous menu");
+        String oldDepartment = scanner.nextLine();
+        if(departments.contains(oldDepartment)){
+            String newDepartment = scanner.nextLine();
+            h1.renameDepartment(newDepartment, oldDepartment);
+            editDepartments();
+        } else if (oldDepartment.equalsIgnoreCase("back")) {
+            manageDepartments();
+        } else {
+            while (!departments.contains(oldDepartment)){
+                System.out.println("Invalid department name");
+                editDepartments();
+            }
+        }
+
     }
 }

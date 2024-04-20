@@ -276,4 +276,13 @@ public class Hospital {
         System.out.println("Patient " + patientToDelete + " has not been founded. Ensure that entered name is correct and person you want to delete exists.");
     }
 
+    public void renameDepartment(String newDepartment, String oldDepartment){
+
+        for (int i = 0; i < departments.size(); i++) {
+            if (departments.get(i).equalsIgnoreCase(oldDepartment)) {
+                departments.set(i, newDepartment);
+                break;
+            }
+        }
+    }
 }
