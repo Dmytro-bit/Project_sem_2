@@ -525,6 +525,7 @@ public class Main {
                 break;
 
             case 2:
+                editPatientsDetails();
                 break;
 
             case 3:
@@ -787,6 +788,79 @@ public class Main {
         }else{
             System.out.println("Invalid login. Try again: ");
             editDoctorsDetails();
+        }
+    }
+
+    public static void editPatientsDetails(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Patient> patients = h1.getPatients();
+        Patient patientToEdit = new Patient();
+        System.out.println("Enter a login of patient whose details you need to change");
+
+        String input = scanner.next();
+        scanner.nextLine();
+        boolean contains = false;
+        for (Patient patient: patients) {
+            if (input.equals(patient.getLog_in())) {
+                contains = true;
+                patientToEdit = patient;
+                break;
+            }
+        }
+        if(contains){
+
+            System.out.println(patientToEdit);
+            System.out.println("You can change next details: ");
+            System.out.println("1. Name ");
+            System.out.println("2. Age ");
+            System.out.println("3. Has medical card ");
+            System.out.println("4. Phone ");
+            System.out.println("5. Back to manage doctors menu");
+
+            System.out.println("Enter your  choice below: ");
+            int option = scanner.nextInt();
+            switch (option){
+                case 1:
+                    System.out.println("Enter new name");
+                    scanner.nextLine();
+                    String newName = scanner.nextLine();
+                    patientToEdit.setName(newName);
+                    editPatientsDetails();
+                    break;
+                case 2:
+                    System.out.println("Enter new age");
+                    int newAge = scanner.nextInt();
+                    patientToEdit.setAge(newAge);
+                    editPatientsDetails();
+                    break;
+                case 3:
+                    System.out.println("Does patient have a medical card? Enter true/false");
+                    boolean medcard = scanner.nextBoolean();
+                    patientToEdit.setHas_medical_card(medcard);
+                    editPatientsDetails();
+                    break;
+
+                case 4:
+                    System.out.println("Enter a new phone number ");
+                    scanner.nextLine();
+                    String newNumber = scanner.nextLine();
+                    patientToEdit.setPhone(newNumber);
+                    editPatientsDetails();
+                    break;
+
+                case 5:
+                    managePatients();
+                    break;
+                default :
+                    System.out.println("Unexpected value " + option);
+                    editPatientsDetails();
+                    break;
+            }
+
+
+        }else{
+            System.out.println("Invalid login. Try again: ");
+            editPatientsDetails();
         }
     }
     public static void editDepartments(){
