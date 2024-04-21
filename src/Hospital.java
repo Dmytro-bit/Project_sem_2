@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Hospital {
-    //Attributes
+    //  Attributes
     private String name;
     private String workingHours;
     private ArrayList<String> departments;
@@ -14,7 +14,7 @@ public class Hospital {
     private ArrayList<Appointment> appointments;
     private String defaultPassword;
 
-    //Constructor
+    //  Constructor
     public Hospital(String name, String workingHours, ArrayList<Doctor> doctors, ArrayList<String> departments) {
         this.name = name;
         this.workingHours = workingHours;
@@ -39,14 +39,15 @@ public class Hospital {
     }
 
 
-    //Getters
+    //  Getters
     public String getName() {
         return this.name;
     }
 
-    public ArrayList<Appointment> getAppointments(){
+    public ArrayList<Appointment> getAppointments() {
         return this.appointments;
     }
+
     public String getWorkingHours() {
         return workingHours;
     }
@@ -59,17 +60,19 @@ public class Hospital {
         return this.doctors;
     }
 
-    public ArrayList<Patient> getPatients(){
+    public ArrayList<Patient> getPatients() {
         return this.patients;
     }
-    public ArrayList<String > getAdminLogIns() {
+
+    public ArrayList<String> getAdminLogIns() {
         return this.adminLogIns;
     }
 
     public ArrayList<String> getAdminPasswords() {
         return this.adminPasswords;
     }
-    //Setters
+
+    //  Setters
     public void setName(String name) {
         this.name = name;
     }
@@ -78,7 +81,7 @@ public class Hospital {
         this.workingHours = workingHours;
     }
 
-    public void setPatients(ArrayList<Patient> patients){
+    public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
     }
 
@@ -94,32 +97,45 @@ public class Hospital {
         this.doctors = doctors;
     }
 
+    /**
+     * @return String representing of Hospital
+     **/
     @Override
     public String toString() {
         return "Hospital:\n\t-Name: " + this.name + "\n\t-Departments: " + this.departments + "\n\t-Doctors: " + this.doctors;
     }
 
-    //Methods
-    public void displayDoctors()
-    {
+    /**
+     * display all doctors in System.out
+     **/
+    public void displayDoctors() {
         int counter = 0;
-        for(Doctor d : doctors){
+        for (Doctor d : doctors) {
             counter++;
-            System.out.println(counter+" "+d);
+            System.out.println(counter + " " + d);
         }
     }
 
+    /**
+     * Add doctor to the hospital
+     **/
     public void hireDoctor(Doctor d) {
         doctors.add(d);
         System.out.println("Dr. " + d.getName() + " was hired");
     }
 
+    /**
+     * Add a doctor to the hospital with creation
+     **/
     public void hireDoctor(String log_in, String password, String name, int age, int exp_years, String department, ArrayList<Patient> p) { // Require Bugfix
         Doctor d = new Doctor(log_in, password, name, age, exp_years, p, department);
         doctors.add(d);
         System.out.println("Dr. " + d.getName() + " was hired");
     }
 
+    /**
+     * remove doctor from the hospital
+     **/
     public void fireDoctor(Doctor d) {
         if (doctors.contains(d)) {
             doctors.remove(d);
@@ -127,6 +143,9 @@ public class Hospital {
         }
     }
 
+    /**
+     * remove doctor from the hospital by name
+     **/
     public void fireDoctor(String doctorToFire) {
 
         for (int i = 0; i < doctors.size(); i++) {
@@ -139,84 +158,9 @@ public class Hospital {
         System.out.println("Dr. " + doctorToFire + " has not been founded. Ensure that entered name is correct and person you want to fire exists.");
     }
 
-    /*public void sortDoctors(String sortingAttribute) {
-        ArrayList<Doctor> unsortedDoctors = new ArrayList<>(doctors);
-        if (sortingAttribute.equalsIgnoreCase("experience")) {
-            ArrayList<Integer> experience_list = new ArrayList<>();
-            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
-            for (Doctor doctor: unsortedDoctors) {
-                experience_list.add(doctor.getExperience_years());
-                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
-            }
-            ArrayList<Integer> backup = new ArrayList<>(experience_list);
-            ArrayList<Integer> sortedIndexes = new ArrayList<>();
-
-            Collections.sort(experience_list);
-            for (Integer exp_index: experience_list) {
-                sortedIndexes.add(backup.indexOf(exp_index));
-            }
-            System.out.println("Unsorted indexes: " + unsortedIndexes);
-            System.out.println("sorted indexes: " + sortedIndexes);
-            System.out.println("Unsorted doctors: " + unsortedDoctors);
-            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
-
-            for (int i = 0; i < unsortedDoctors.size(); i++) {
-                int sorted_index = sortedIndexes.get(i);
-                sortedDoctors.add(unsortedDoctors.get(sorted_index));
-            }
-
-            System.out.println("Sorted doctors list: \n" + sortedDoctors);
-        } else if (sortingAttribute.equalsIgnoreCase("age")) {
-            ArrayList<Integer> age_list = new ArrayList<>();
-            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
-            for (Doctor doctor: unsortedDoctors) {
-                age_list.add(doctor.getAge());
-                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
-            }
-            ArrayList<Integer> backup = new ArrayList<>(age_list);
-            ArrayList<Integer> sortedIndexes = new ArrayList<>();
-
-            Collections.sort(age_list);
-            for (Integer age_index: age_list) {
-                sortedIndexes.add(backup.indexOf(age_index));
-            }
-            System.out.println("Unsorted indexes: " + unsortedIndexes);
-            System.out.println("sorted indexes: " + sortedIndexes);
-            System.out.println("Unsorted doctors: " + unsortedDoctors);
-            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
-
-            for (int i = 0; i < unsortedDoctors.size(); i++) {
-                int sorted_index = sortedIndexes.get(i);
-                sortedDoctors.add(unsortedDoctors.get(sorted_index));
-            }
-            System.out.println("Sorted doctors list: \n" + sortedDoctors );
-        } else if (sortingAttribute.equalsIgnoreCase("name")) {
-            ArrayList<String> name_list = new ArrayList<>();
-            ArrayList<Integer> unsortedIndexes = new ArrayList<>();
-            for (Doctor doctor: unsortedDoctors) {
-                name_list.add(doctor.getName());
-                unsortedIndexes.add(unsortedDoctors.indexOf(doctor));
-            }
-            ArrayList<String> backup = new ArrayList<>(name_list);
-            ArrayList<Integer> sortedIndexes = new ArrayList<>();
-
-            Collections.sort(name_list);
-            for (String name_index: name_list) {
-                sortedIndexes.add(backup.indexOf(name_index));
-            }
-            System.out.println("Unsorted indexes: " + unsortedIndexes);
-            System.out.println("sorted indexes: " + sortedIndexes);
-            System.out.println("Unsorted doctors: " + unsortedDoctors);
-            ArrayList<Doctor> sortedDoctors = new ArrayList<>();
-
-            for (int i = 0; i < unsortedDoctors.size(); i++) {
-                int sorted_index = sortedIndexes.get(i);
-                sortedDoctors.add(unsortedDoctors.get(sorted_index));
-            }
-            System.out.println("Sorted doctors list: \n" + sortedDoctors);
-        }
-    } */
-
+    /**
+     * return sorted list of all doctors in hospital by parameter
+     **/
     public void sortDoctors(String sortBy) {
         ArrayList<Doctor> sortedDoctors = new ArrayList<>(doctors);
         switch (sortBy.toLowerCase()) {
@@ -254,57 +198,86 @@ public class Hospital {
 
 
     }
+
+    /**
+     * add department to the hospital
+     **/
     public void addDepartment(String nameOfNewDepartment) {
         departments.add(nameOfNewDepartment);
         System.out.println(departments);
     }
 
+    /**
+     * remove department from the hospital
+     **/
     public void removeDepartment(String nameOfFormerDepartment) {
         departments.remove(nameOfFormerDepartment);
         System.out.println(departments);
     }
 
-    public Doctor getDocByName(String docName){
+    /**
+     * find doctor in the hospital by name
+     **/
+    public Doctor getDocByName(String docName) {
 
-        for (Doctor doc: doctors) {
-            if(doc.getName().equalsIgnoreCase(docName)){
+        for (Doctor doc : doctors) {
+            if (doc.getName().equalsIgnoreCase(docName)) {
                 return doc;
 
             }
         }
         return null;
     }
-    public Patient getPatByName(String patName){
 
-        for (Patient pat: patients) {
-            if(pat.getName().equalsIgnoreCase(patName)){
+    /**
+     * find patient in the hospital by name
+     **/
+    public Patient getPatByName(String patName) {
+
+        for (Patient pat : patients) {
+            if (pat.getName().equalsIgnoreCase(patName)) {
                 return pat;
             }
         }
         return null;
     }
-    public void addAppointment(String time, String docName, String patName){
+
+    /**
+     * add appointment by hospital
+     **/
+    public void addAppointment(String time, String docName, String patName) {
         Doctor doctor = getDocByName(docName);
         Patient patient = getPatByName(patName);
-        if(patient == null){
+        if (patient == null) {
             System.out.println("Patient's name has not been found");
-            Main.manageAppointments();
-        }else if (doctor == null){
+            MainApp.manageAppointments();
+        } else if (doctor == null) {
             System.out.println("Doctor's name has not been found");
-            Main.manageAppointments();
-        }else {
+            MainApp.manageAppointments();
+        } else {
             appointments.add(new Appointment(time, doctor, patient));
         }
 
     }
-    public void addPatientsToDB(ArrayList<Patient> newPatients){
+
+    /**
+     * add list of patients to the hospital
+     **/
+
+    public void addPatientsToDB(ArrayList<Patient> newPatients) {
         patients.addAll(newPatients);
     }
 
+    /**
+     * add patient to the hospital
+     **/
     public void addNewPatient(Patient newPatient) {
         patients.add(newPatient);
     }
 
+    /**
+     * remove patient from the hospital
+     **/
     public void deletePatientFromDB(String patientToDelete) {
 
         for (int i = 0; i < patients.size(); i++) {
@@ -317,12 +290,19 @@ public class Hospital {
         System.out.println("Patient " + patientToDelete + " has not been founded. Ensure that entered name is correct and person you want to delete exists.");
     }
 
-    public void displayAppointments(){
-        for (Appointment appointment: appointments) {
+    /**
+     * display all appointments in System.out
+     **/
+    public void displayAppointments() {
+        for (Appointment appointment : appointments) {
             System.out.println(appointment);
         }
     }
-    public void renameDepartment(String newDepartment, String oldDepartment){
+
+    /**
+     * rename department
+     **/
+    public void renameDepartment(String newDepartment, String oldDepartment) {
 
         for (int i = 0; i < departments.size(); i++) {
             if (departments.get(i).equalsIgnoreCase(oldDepartment)) {
@@ -332,31 +312,38 @@ public class Hospital {
         }
     }
 
+    /**
+     * find Appointment using name
+     **/
     public Appointment findAppByNames(String docName, String patName) {
         Doctor doctor = getDocByName(docName);
         Patient patient = getPatByName(patName);
-        if(patient == null) {
+        if (patient == null) {
             System.out.println("Patient's name has not been found");
-            Main.manageAppointments();
+            MainApp.manageAppointments();
         } else if (doctor == null) {
             System.out.println("Doctor's name has not been found");
-            Main.manageAppointments();
+            MainApp.manageAppointments();
         } else {
-            for (Appointment app: appointments) {
-                if(app.getPatient() == patient && app.getDoctor() == doctor) {
+            for (Appointment app : appointments) {
+                if (app.getPatient() == patient && app.getDoctor() == doctor) {
                     return app;
                 }
             }
         }
         return null;
     }
-    public void removeAppointment(String docName, String patName ) {
+
+    /**
+     * remove appointment
+     **/
+    public void removeAppointment(String docName, String patName) {
         Appointment appointmentToRemove = findAppByNames(docName, patName);
-        if(appointmentToRemove != null) {
+        if (appointmentToRemove != null) {
             appointments.remove(appointmentToRemove);
         } else {
             System.out.println("Unexpected error.");
-            Main.manageAppointments();
+            MainApp.manageAppointments();
         }
 
     }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Doctor {
-    //Attributes
+    //  Attributes
     private String log_in;
     private String password;
     private String name;
@@ -68,6 +68,7 @@ public class Doctor {
     public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
+
     public String getLog_in() {
         return log_in;
     }
@@ -75,6 +76,8 @@ public class Doctor {
     public String getPassword() {
         return password;
     }
+
+//    Setters
 
     public void setName(String name) {
         this.name = name;
@@ -97,7 +100,6 @@ public class Doctor {
     }
 
 
-
     public void setLog_in(String log_in) {
         this.log_in = log_in;
     }
@@ -106,6 +108,9 @@ public class Doctor {
         this.password = password;
     }
 
+    /**
+     * @return String representing of Doctor
+     **/
     @Override
     public String toString() {
         return "Doctor:\n\t-Name: " + this.name +
@@ -113,6 +118,9 @@ public class Doctor {
                 "\n\t-Years of Practice: " + this.experience_years;
     }
 
+    /**
+     * display all patients in System.out
+     **/
     public void displayPatients() {
         int total = 0;
         for (Patient i : patients) {
@@ -132,21 +140,25 @@ public class Doctor {
         appointments.add(a);
     }
 
+    /**
+     * display all appointments in System.out
+     **/
     public void displayAppointments() {
         int total = 0;
-        if(appointments.size() > 0)
-        {
+        if (appointments.size() > 0) {
             for (Appointment appointment : appointments) {
                 total++;
                 System.out.println(appointment);
             }
             System.out.println("Total amount of appointments: " + total);
-        }
-        else {
+        } else {
             System.out.println("No appointments scheduled");
         }
     }
 
+    /**
+     * addPatients with output in System.out
+     **/
     public void addPatient(Patient p) {
         if (!patients.contains(p)) {
             patients.add(p);
@@ -155,6 +167,9 @@ public class Doctor {
             System.out.println("This patient is already registered with Dr. " + this.getName());
     }
 
+    /**
+     * addPatients with creation of Patient and output in System.out
+     **/
     public void addPatient(String log_in, String password, String name, int age, boolean mc) {
         Patient p = new Patient(log_in, password, name, age, mc);
         if (!patients.contains(p)) {
@@ -163,9 +178,11 @@ public class Doctor {
         }
     }
 
+    /**
+     * delete Patient with deletion of all appointments
+     **/
     public void deletePatient(Patient p) {
-        if(patients.size() > 0)
-        {
+        if (!patients.isEmpty()) {
             if (patients.contains(p)) {
                 for (int i = 0; i < this.appointments.size(); i++) {
                     if (appointments.get(i).getDoctor() == this && appointments.get(i).getPatient() == p) {
@@ -177,20 +194,24 @@ public class Doctor {
                 System.out.println("Patient " + p.getName() + " has been deleted from Dr. " + this.getName() + "'s register");
             } else
                 System.out.println("This patient is not in the Dr. " + this.getName() + "'s register");
-        }
-        else
-        {
+        } else {
             System.out.println("No patients to be deleted");
         }
     }
 
+    /**
+     * remove Appointment with output in System.out
+     **/
     public void removeAppointment(Appointment a) {
-        if(appointments.size() > 0)
+        if (appointments.size() > 0)
             this.appointments.remove(a);
         else
             System.out.println("No appointments scheduled");
     }
 
+    /**
+     * prescribe medication to the patient
+     **/
     public void prescribe(Patient p, MedicalHistory mh) {
         if (patients.contains(p)) {
             for (Appointment a : p.getAppointments()) {
@@ -202,6 +223,9 @@ public class Doctor {
         }
     }
 
+    /**
+     * prescribe medication to the patient with creating MedicalHistory
+     **/
     public void prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
         if (patients.contains(p)) {
             for (Appointment a : p.getAppointments()) {

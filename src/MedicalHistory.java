@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
 public class MedicalHistory {
+    //  Attributes
     private String time;
     private ArrayList<String> prescription;
     private ArrayList<Double> dose;
     private ArrayList<String> info;
 
+    //  Constructor
     public MedicalHistory(String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
         this.time = time;
         this.prescription = prescription;
@@ -47,6 +49,9 @@ public class MedicalHistory {
         this.info = info;
     }
 
+    /**
+     * @return String representing of MedicalHistory
+     **/
     @Override
     public String toString() {
         String returnString = "Appointment time: " + time + "Prescription: ";

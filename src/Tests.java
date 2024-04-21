@@ -17,15 +17,15 @@ public class Tests {
         Departments.add("Neurology Department");
         Departments.add("Orthopedics Department");
 
-        Hospital hospital_1 = new Hospital("Hospital #1","08:00-20:00", new ArrayList<>(), Departments);
+        Hospital hospital_1 = new Hospital("Hospital #1", "08:00-20:00", new ArrayList<>(), Departments);
 
         System.out.println("\n----------------- Hospital toString test -----------------\n");
         System.out.println(hospital_1);
 
 //      Doctor initialization
 
-        Doctor doctor_1 = new Doctor("bob_123", "password123","Bob", 46, 10, Departments.get(2));
-        Doctor doctor_2 = new Doctor("rob_123", "password123","ROb", 60, 29, Departments.get(6));
+        Doctor doctor_1 = new Doctor("bob_123", "password123", "Bob", 46, 10, Departments.get(2));
+        Doctor doctor_2 = new Doctor("rob_123", "password123", "ROb", 60, 29, Departments.get(6));
 
         System.out.println("\n----------------- Doctor toString test -----------------\n");
 
@@ -35,6 +35,7 @@ public class Tests {
 
         System.out.println("\n----------------- Hospital hireDoctor test -----------------\n");
         hospital_1.hireDoctor(doctor_1);
+        hospital_1.hireDoctor(doctor_2);
         System.out.println();
         System.out.println(hospital_1);
 
@@ -124,6 +125,8 @@ public class Tests {
         System.out.println("\n-----------------Hospital sortDoctors by name Test-----------------\n");
         hospital_1.sortDoctors("name");
 
-
+        System.out.println("\n-----------------Hospital removeDepartment Test-----------------\n");
+        hospital_1.addDepartment(Departments.get(7));
+        hospital_1.removeDepartment(Departments.get(7));
     }
 }

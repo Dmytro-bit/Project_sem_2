@@ -1,8 +1,11 @@
 public class Appointment {
+    //  Attributes
     private String appointmentTime;
     private Doctor doctor;
     private Patient patient;
 
+
+    //    Constructors
     public Appointment(String appointmentTime, Doctor doctor, Patient patient) {
         this.appointmentTime = appointmentTime;
         this.doctor = doctor;
@@ -15,6 +18,7 @@ public class Appointment {
         this.patient = new Patient();
     }
 
+    //  Getters
     public String getAppointmentTime() {
         return appointmentTime;
     }
@@ -27,6 +31,7 @@ public class Appointment {
         return patient;
     }
 
+    //    Setters
     public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
@@ -39,6 +44,9 @@ public class Appointment {
         this.patient = patient;
     }
 
+    /**
+     * @return String representing of Appointment
+     **/
     @Override
     public String toString() {
         return "\nDate and Time: " + this.appointmentTime + "\n" + this.patient + "\n" + this.doctor;

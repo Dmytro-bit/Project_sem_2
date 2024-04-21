@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Patient {
+    //  Attributes
     private String log_in;
     private String password;
     private String name;
@@ -8,11 +9,10 @@ public class Patient {
     private boolean has_medical_card;
     private String phone;
     private boolean isRegistered;
-
     private ArrayList<MedicalHistory> medicalHistories;
-
     private ArrayList<Appointment> appointments;
 
+    //    Constructors
     public Patient(String log_in, String password, String name, Integer age, boolean has_medical_card, String phone) {
         this.log_in = log_in;
         this.password = password;
@@ -50,9 +50,6 @@ public class Patient {
 
     }
 
-
-
-
     public Patient() {
         this.name = "";
         this.age = 0;
@@ -61,6 +58,7 @@ public class Patient {
         this.isRegistered = false;
         this.medicalHistories = new ArrayList<>();
     }
+
 
     // Getters
     public String getLog_in() {
@@ -87,7 +85,9 @@ public class Patient {
         return phone;
     }
 
-    public boolean getIsRegistered() { return isRegistered; }
+    public boolean getIsRegistered() {
+        return isRegistered;
+    }
 
     public ArrayList<Appointment> getAppointments() {
         return appointments;
@@ -96,6 +96,7 @@ public class Patient {
     public ArrayList<MedicalHistory> getMedicalHistories() {
         return medicalHistories;
     }
+
 
     // Setters
     public void setLog_in(String log_in) {
@@ -114,9 +115,14 @@ public class Patient {
         this.age = age;
     }
 
-    public void setPhone(String phone) { this.phone = phone; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public void setIsRegistered(boolean isRegistered) { this.isRegistered = isRegistered; }
+    public void setIsRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
+    }
+
     public void setHas_medical_card(boolean has_medical_card) {
         this.has_medical_card = has_medical_card;
     }
@@ -125,7 +131,9 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    // ToString
+    /**
+     * @return String representing of Patient
+     **/
     @Override
     public String toString() {
         return "Patient \n\t-Name: " + name + "\n\t-Age: " + age + "\n\t-Has Medical Card: " + has_medical_card + "\n\t-Phone: " + phone + "\n";
@@ -135,14 +143,19 @@ public class Patient {
         System.out.println(this.medicalHistories);
     }
 
+    /**
+     * System.out of all appointments
+     **/
     public void displayAppointment() {
-        if(appointments.size() > 0)
+        if (!appointments.isEmpty())
             System.out.println(this.appointments);
         else
             System.out.println("No appointments scheduled");
     }
 
-
+    /**
+     * Set phone number ex.(+3530009128627)
+     **/
     public String changePhoneNumber(String phone) {
         if (phone.indexOf("+") == 0) {
             if (phone.length() > 7 && phone.length() < 15) {
@@ -153,15 +166,17 @@ public class Patient {
         return "Invalid Phone Number";
     }
 
-    public String addAppointment(Doctor doctor, Appointment a) {
+    /**
+     * Add appointment method require class Doctor and Appointment
+     **/
+    public void addAppointment(Doctor doctor, Appointment a) {
         if (doctor.getPatients().contains(this)) {
             this.appointments.add(a);
             doctor.getAppointments().add(a);
-            System.out.println("You have successfully scheduled an appointment with Dr. "+doctor.getName()+"\n");
-            return "Success";
+            System.out.println("You have successfully scheduled an appointment with Dr. " + doctor.getName() + "\n");
+            return;
         }
         System.out.println("You are not registered with this doctor");
-        return "Error";
     }
 
     public void addAppointment(Appointment a) {
@@ -169,22 +184,19 @@ public class Patient {
         this.appointments.add(a);
     }
 
-    public String cancelAppointment(Appointment appointment) {  // Make this function
-        if(appointments.size() > 1)
-        {
+    /**
+     * cancel appointment require class Appointment
+     **/
+    public String cancelAppointment(Appointment appointment) {
+        if (appointments.size() > 1) {
             if (this.appointments.contains(appointment)) {
                 this.appointments.remove(appointment);
                 Doctor doctor = appointment.getDoctor();
                 doctor.removeAppointment(appointment);
                 return "Success";
             }
-        }
-        else
+        } else
             System.out.println("You do not have any appointments scheduled");
         return "Error";
-    }
-
-    public void changePassword() {
-
     }
 }
