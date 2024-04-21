@@ -157,7 +157,7 @@ public class MainApp {
                     Doctor d;
                     String date;
                     String time;
-                    String datetime;
+                    String datetime = "";
                     System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
                     System.out.println("Ensure, you scheduling appointment within hospitals working hours: " + h1.getWorkingHours());
                     System.out.println("\nEnter the date of your appointment: ");
@@ -165,9 +165,8 @@ public class MainApp {
                     System.out.println("\nEnter the time of your appointment: ");
                     time = input.nextLine();
 
-                    datetime = date + " " + time;
 
-                    while (!datetimeValidation(datetime)) {
+                    while (!datetimeValidation(date, time)) {
                         System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
                         System.out.println("\nEnter the date of your appointment: ");
                         date = input.nextLine();
@@ -175,6 +174,7 @@ public class MainApp {
                         time = input.nextLine();
 
                         datetime = date + " " + time;
+
                     }
 
                     System.out.println("\nPlease, choose your doctor from the list: ");
@@ -327,6 +327,90 @@ public class MainApp {
                 drawDoctorOptions(currentDoctor);
                 break;
             case 8:
+                int choosePatient;
+                String makeNewPrescription;
+                String date;
+                ArrayList<String> medicineList = new ArrayList<>();
+                String medicine;
+                ArrayList<Double> doseList = new ArrayList<>();
+                double dose;
+                ArrayList<String> infoList = new ArrayList<>();
+                String info;
+                System.out.println("Please, choose a patient you want to prescribe to: ");
+                System.out.println(currentDoctor.getPatients());
+                choosePatient = input.nextInt();
+
+                while(choosePatient < 1 || choosePatient > currentDoctor.getPatients().size())
+                {
+                    System.out.println("\nInvalid Option");
+                    System.out.println("\nPlease, choose a patient you want to prescribe to: ");
+                    System.out.println(currentDoctor.getPatients());
+                    choosePatient = input.nextInt();
+                }
+
+                Patient chosenPatient = currentDoctor.getPatients().get(choosePatient-1);
+                input.nextLine();
+
+                System.out.println("\nEnter a date, using the following format YYYY-MM-DD: ");
+                date = input.nextLine();
+
+                while(!datetimeValidation(date))
+                {
+                    System.out.println("\nInvalid Date or Format.\nPlease, try again and make sure you have used the correct date format.");
+                    System.out.println("\nEnter a date, using the following format YYYY-MM-DD: ");
+                    date = input.nextLine();
+                }
+
+                System.out.println("\nName the medicine you want to prescribe: ");
+                medicine = input.nextLine();
+                medicineList.add(medicine);
+
+                System.out.println("\nEnter the recommended dose per day: ");
+                dose = input.nextDouble();
+                doseList.add(dose);
+                input.nextLine();
+
+                System.out.println("\nDetails: ");
+                info = input.nextLine();
+                infoList.add(info);
+
+                currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
+                System.out.println("\nDo you want to make another prescription? (yes/no)");
+                makeNewPrescription = input.nextLine();
+
+                while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no"))
+                {
+                    System.out.println("\nInvalid Option. Please type 'yes' or 'no'");
+                    makeNewPrescription = input.nextLine();
+                }
+
+                while(makeNewPrescription.equals("yes"))
+                {
+                    System.out.println("\nName the medicine you want to prescribe: ");
+                    medicine = input.nextLine();
+                    medicineList.add(medicine);
+
+                    System.out.println("\nEnter the recommended dose per day: ");
+                    dose = input.nextDouble();
+                    doseList.add(dose);
+                    input.nextLine();
+
+                    System.out.println("\nDetails: ");
+                    info = input.nextLine();
+                    infoList.add(info);
+
+                    currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
+                    System.out.println("\nDo you want to make another prescription? (yes/no)");
+                    makeNewPrescription = input.nextLine();
+
+                    while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no"))
+                    {
+                        System.out.println("\nInvalid Option. Please type 'yes' or 'no'");
+                        makeNewPrescription = input.nextLine();
+                    }
+                }
+                System.out.println();
+                drawDoctorOptions(currentDoctor);
                 break;
             case 9:
                 drawMenu();
@@ -689,20 +773,28 @@ public class MainApp {
 
     }
 
-    public static boolean datetimeValidation(String datetime) {
+    public static boolean datetimeValidation(String date, String time) {
+        String datetime = date + " " + time;
         if (datetime.length() == 16) {
             //date validation
-            String date = datetime.substring(0, 10);
             if (Integer.parseInt(date.substring(0, 4)) >= 2024 && Integer.parseInt(date.substring(5, 7)) > 0 && Integer.parseInt(date.substring(5, 7)) <= 12
                     && Integer.parseInt(date.substring(8, 10)) > 0 && Integer.parseInt(date.substring(8, 10)) <= 31 && datetime.charAt(4) == '-' && datetime.charAt(7) == '-') {
                 //time validation
                 int openTime = Integer.parseInt(h1.getWorkingHours().substring(0, 2));
                 int closeTime = Integer.parseInt(h1.getWorkingHours().substring(6, 8));
-                String time = datetime.substring(11);
                 return Integer.parseInt(time.substring(0, 2)) >= openTime && Integer.parseInt(time.substring(0, 2)) <= closeTime
                         && Integer.parseInt(time.substring(3)) >= 0 && Integer.parseInt(time.substring(3)) < 60 &&
                         time.charAt(2) == ':';
             }
+        }
+        return false;
+    }
+
+    public static boolean datetimeValidation(String date) {
+        if (date.length() == 10) {
+            //date validation
+            return Integer.parseInt(date.substring(0, 4)) >= 2024 && Integer.parseInt(date.substring(5, 7)) > 0 && Integer.parseInt(date.substring(5, 7)) <= 12
+                    && Integer.parseInt(date.substring(8, 10)) > 0 && Integer.parseInt(date.substring(8, 10)) <= 31 && date.charAt(4) == '-' && date.charAt(7) == '-';
         }
         return false;
     }
@@ -915,7 +1007,7 @@ public class MainApp {
         time = scanner.nextLine();
 
         datetime = date + " " + time;
-        while (!datetimeValidation(datetime)) {
+        while (!datetimeValidation(date, time)) {
             System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
             System.out.println("\nEnter the date of your appointment: ");
             date = scanner.nextLine();
@@ -1045,7 +1137,7 @@ public class MainApp {
                 time = scanner.nextLine();
 
                 datetime = date + " " + time;
-                while (!datetimeValidation(datetime)) {
+                while (!datetimeValidation(date, time)) {
                     System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
                     System.out.println("\nEnter the date of your appointment: ");
                     date = scanner.nextLine();
