@@ -331,4 +331,33 @@ public class Hospital {
             }
         }
     }
+
+    public Appointment findAppByNames(String docName, String patName) {
+        Doctor doctor = getDocByName(docName);
+        Patient patient = getPatByName(patName);
+        if(patient == null) {
+            System.out.println("Patient's name has not been found");
+            Main.manageAppointments();
+        } else if (doctor == null) {
+            System.out.println("Doctor's name has not been found");
+            Main.manageAppointments();
+        } else {
+            for (Appointment app: appointments) {
+                if(app.getPatient() == patient && app.getDoctor() == doctor) {
+                    return app;
+                }
+            }
+        }
+        return null;
+    }
+    public void removeAppointment(String docName, String patName ) {
+        Appointment appointmentToRemove = findAppByNames(docName, patName);
+        if(appointmentToRemove != null) {
+            appointments.remove(appointmentToRemove);
+        } else {
+            System.out.println("Unexpected error.");
+            Main.manageAppointments();
+        }
+
+    }
 }

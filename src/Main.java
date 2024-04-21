@@ -550,7 +550,10 @@ public class Main {
 
             case 6:
                 break;
-
+            default:
+                System.out.println("Invalid Value");
+                managePatients();
+                break;
 
         }
     }
@@ -629,16 +632,19 @@ public class Main {
 
                 break;
             case 3:
-
+                cancelAppointment();
                 break;
             case 4:
                 h1.displayAppointments();
                 break;
             case 5:
+                drawMenu();
                 break;
             case 6:
                 break;
             default:
+                System.out.println("Invalid Value");
+                manageAppointments();
                 break;
 
         }
@@ -912,11 +918,11 @@ public class Main {
         String date, time, datetime;
         System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
         System.out.println("Ensure that scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
-        System.out.print("\nEnter the date of appointment: ");
-        scanner.nextLine();
+        System.out.println("\nEnter the date of appointment: ");
+
         date = scanner.nextLine();
-        System.out.print("\nEnter the time of appointment: ");
-        scanner.nextLine();
+        System.out.println("\nEnter the time of appointment: ");
+
         time = scanner.nextLine();
 
         datetime = date+" "+time;
@@ -944,6 +950,43 @@ public class Main {
         switch (option){
             case 1:
                 scheduleAppointment();
+                break;
+            case 2:
+                manageAppointments();
+                break;
+            default:
+                while (option!=1 || option!=2){
+                    System.out.println("Invalid value. Try again: ");
+                    System.out.println("1. Add next appointment");
+                    System.out.println("2. To 'Manage appointments' menu");
+                    option = scanner.nextInt();
+                }
+                break;
+        }
+    }
+
+    public static void cancelAppointment() {
+        Scanner scanner = new Scanner(System.in);
+        String patName, docName;
+        System.out.println("To cancel an appointment enter next data:");
+        System.out.println("Doctor's full name: ");
+        docName = scanner.nextLine();
+        System.out.println("Patient's full name: ");
+        patName = scanner.nextLine();
+        h1.removeAppointment(docName, patName);
+        System.out.println("List of current appointments: ");
+        h1.displayAppointments();
+        System.out.println("1. Cancel next appointment");
+        System.out.println("2. To 'Manage appointments' menu");
+        int option = scanner.nextInt();
+        switch (option){
+            case 1:
+                if(!h1.getAppointments().isEmpty()){
+                    cancelAppointment();
+                } else{
+                    System.out.println("List of appointments is empty");
+                    manageAppointments();
+                }
                 break;
             case 2:
                 manageAppointments();
