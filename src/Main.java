@@ -618,7 +618,26 @@ public class Main {
         System.out.println("---------------------------------");
         System.out.println("6. Exit");
 
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
 
+        switch (option) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            default:
+                break;
+
+        }
     }
 
     public static boolean authorization(ArrayList<String> listOfLogins, ArrayList<String> listOfPasswords, String object) {
