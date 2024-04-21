@@ -180,7 +180,6 @@ public class Patient {
     }
 
     public void addAppointment(Appointment a) {
-
         this.appointments.add(a);
     }
 

@@ -117,9 +117,10 @@ public class MainApp {
         System.out.println("3. Display Appointments");
         System.out.println("4. Add Appointments");
         System.out.println("5. Cancel Appointments");
-        System.out.println("6. <<< Back");
+        System.out.println("6. Display Medical History");
+        System.out.println("7. <<< Back");
         System.out.println("---------------------------------");
-        System.out.println("7. Exit");
+        System.out.println("8. Exit");
         option = input.nextInt();
 
 
@@ -172,11 +173,9 @@ public class MainApp {
                         date = input.nextLine();
                         System.out.println("\nEnter the time of your appointment: ");
                         time = input.nextLine();
-
-                        datetime = date + " " + time;
-
                     }
 
+                    datetime = date + " " + time;
                     System.out.println("\nPlease, choose your doctor from the list: ");
                     h1.displayDoctors();
                     chooseDoctor = input.nextInt();
@@ -214,9 +213,12 @@ public class MainApp {
                 drawPatientOptions(currentPatient);
                 break;
             case 6:
-                drawMenu();
+                currentPatient.displayMedicalHistory();
                 break;
             case 7:
+                drawMenu();
+                break;
+            case 8:
                 break;
             default:
                 System.out.println("Invalid Value");
@@ -340,22 +342,20 @@ public class MainApp {
                 System.out.println(currentDoctor.getPatients());
                 choosePatient = input.nextInt();
 
-                while(choosePatient < 1 || choosePatient > currentDoctor.getPatients().size())
-                {
+                while (choosePatient < 1 || choosePatient > currentDoctor.getPatients().size()) {
                     System.out.println("\nInvalid Option");
                     System.out.println("\nPlease, choose a patient you want to prescribe to: ");
                     System.out.println(currentDoctor.getPatients());
                     choosePatient = input.nextInt();
                 }
 
-                Patient chosenPatient = currentDoctor.getPatients().get(choosePatient-1);
+                Patient chosenPatient = currentDoctor.getPatients().get(choosePatient - 1);
                 input.nextLine();
 
                 System.out.println("\nEnter a date, using the following format YYYY-MM-DD: ");
                 date = input.nextLine();
 
-                while(!datetimeValidation(date))
-                {
+                while (!datetimeValidation(date)) {
                     System.out.println("\nInvalid Date or Format.\nPlease, try again and make sure you have used the correct date format.");
                     System.out.println("\nEnter a date, using the following format YYYY-MM-DD: ");
                     date = input.nextLine();
@@ -374,39 +374,38 @@ public class MainApp {
                 info = input.nextLine();
                 infoList.add(info);
 
-                currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
-                System.out.println("\nDo you want to make another prescription? (yes/no)");
-                makeNewPrescription = input.nextLine();
-
-                while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no"))
-                {
-                    System.out.println("\nInvalid Option. Please type 'yes' or 'no'");
-                    makeNewPrescription = input.nextLine();
-                }
-
-                while(makeNewPrescription.equals("yes"))
-                {
-                    System.out.println("\nName the medicine you want to prescribe: ");
-                    medicine = input.nextLine();
-                    medicineList.add(medicine);
-
-                    System.out.println("\nEnter the recommended dose per day: ");
-                    dose = input.nextDouble();
-                    doseList.add(dose);
-                    input.nextLine();
-
-                    System.out.println("\nDetails: ");
-                    info = input.nextLine();
-                    infoList.add(info);
-
-                    currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
+                boolean created = currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
+                if (created) {
                     System.out.println("\nDo you want to make another prescription? (yes/no)");
                     makeNewPrescription = input.nextLine();
 
-                    while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no"))
-                    {
+                    while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no")) {
                         System.out.println("\nInvalid Option. Please type 'yes' or 'no'");
                         makeNewPrescription = input.nextLine();
+                    }
+
+                    while (makeNewPrescription.equals("yes")) {
+                        System.out.println("\nName the medicine you want to prescribe: ");
+                        medicine = input.nextLine();
+                        medicineList.add(medicine);
+
+                        System.out.println("\nEnter the recommended dose per day: ");
+                        dose = input.nextDouble();
+                        doseList.add(dose);
+                        input.nextLine();
+
+                        System.out.println("\nDetails: ");
+                        info = input.nextLine();
+                        infoList.add(info);
+
+                        currentDoctor.prescribe(chosenPatient, date, medicineList, doseList, infoList);
+                        System.out.println("\nDo you want to make another prescription? (yes/no)");
+                        makeNewPrescription = input.nextLine();
+
+                        while (!makeNewPrescription.equals("yes") && !makeNewPrescription.equals("no")) {
+                            System.out.println("\nInvalid Option. Please type 'yes' or 'no'");
+                            makeNewPrescription = input.nextLine();
+                        }
                     }
                 }
                 System.out.println();
@@ -1039,8 +1038,6 @@ public class MainApp {
             date = scanner.nextLine();
             System.out.println("\nEnter the time of your appointment: ");
             time = scanner.nextLine();
-
-            datetime = date + " " + time;
         }
 
         System.out.println("Enter patient's name: ");
@@ -1169,9 +1166,8 @@ public class MainApp {
                     date = scanner.nextLine();
                     System.out.println("\nEnter the time of your appointment: ");
                     time = scanner.nextLine();
-
-                    datetime = date + " " + time;
                 }
+
                 appointment.setAppointmentTime(datetime);
                 System.out.println(appointment);
                 rescheduleAppointment(patName, docName);

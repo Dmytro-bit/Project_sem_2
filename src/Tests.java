@@ -114,6 +114,9 @@ public class Tests {
         doctor_2.addAppointment("2004-02-08 04:05:06", patient_2);
         System.out.println(patient_2.cancelAppointment(patient_2.getAppointments().get(1)));
 
+
+
+
         System.out.println("\n-----------------Hospital fireDoctor Test-----------------\n");
         hospital_1.fireDoctor(doctor_1);
 

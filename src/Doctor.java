@@ -226,16 +226,20 @@ public class Doctor {
     /**
      * prescribe medication to the patient with creating MedicalHistory
      **/
-    public void prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
+    public Boolean prescribe(Patient p, String time, ArrayList<String> prescription, ArrayList<Double> dose, ArrayList<String> info) {
         if (patients.contains(p)) {
             for (Appointment a : p.getAppointments()) {
-                if (a.getAppointmentTime().equals(time)) {
+                System.out.println("Inside prescribe: " + time);
+                if (a.getAppointmentTime().substring(0, 10).equals(time)) {
                     MedicalHistory mh = new MedicalHistory(time, prescription, dose, info);
                     p.getMedicalHistories().add(mh);
-                    break;
+                    return true;
                 }
             }
+            System.out.println("There are no appointments scheduled at this time.");
+
         }
+        return false;
     }
 
 
