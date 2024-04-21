@@ -115,8 +115,6 @@ public class Tests {
         System.out.println(patient_2.cancelAppointment(patient_2.getAppointments().get(1)));
 
 
-
-
         System.out.println("\n-----------------Hospital fireDoctor Test-----------------\n");
         hospital_1.fireDoctor(doctor_1);
 
