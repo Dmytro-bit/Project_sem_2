@@ -632,8 +632,10 @@ public class Main {
                 String patName, docName;
                 System.out.println("To edit an appointment enter next data:");
                 System.out.println("Doctor's full name: ");
+                scanner.nextLine();
                 docName = scanner.nextLine();
                 System.out.println("Patient's full name: ");
+
                 patName = scanner.nextLine();
                 rescheduleAppointment(patName, docName);
                 break;
@@ -642,6 +644,7 @@ public class Main {
                 break;
             case 4:
                 h1.displayAppointments();
+                manageAppointments();
                 break;
             case 5:
                 drawMenu();
@@ -976,6 +979,7 @@ public class Main {
         String patName, docName;
         System.out.println("To cancel an appointment enter next data:");
         System.out.println("Doctor's full name: ");
+        scanner.nextLine();
         docName = scanner.nextLine();
         System.out.println("Patient's full name: ");
         patName = scanner.nextLine();
@@ -1024,29 +1028,28 @@ public class Main {
         switch (option) {
             case 1:
                 System.out.println("Enter full name of new doctor");
+                scanner.nextLine();
                 docName = scanner.nextLine();
-                if(h1.getDoctors().contains(h1.getDocByName(docName))){
-                    appointment.setDoctor(h1.getDocByName(docName));
-                } else {
-                    while(!h1.getDoctors().contains(h1.getDocByName(docName))){
-                        System.out.println("Doctor's name has not been found");
-                        docName = scanner.nextLine();
-                    }
+                while(!h1.getDoctors().contains(h1.getDocByName(docName))){
+                    System.out.println("Doctor's name has not been found. Ensure that you have entered a correct data and repeat: ");
+                    docName = scanner.nextLine();
                 }
+                    appointment.setDoctor(h1.getDocByName(docName));
+
                 System.out.println(appointment);
                 rescheduleAppointment(patName, docName);
                 break;
             case 2:
                 System.out.println("Enter full name of new patient");
+                scanner.nextLine();
                 patName = scanner.nextLine();
-                if(h1.getPatients().contains(h1.getPatByName(patName))){
-                    appointment.setPatient(h1.getPatByName(patName));
-                } else {
-                    while (!h1.getPatients().contains(h1.getPatByName(patName))){
-                        System.out.println("Patient's name has not been found");
-                        patName = scanner.nextLine();
-                    }
+                while (!h1.getPatients().contains(h1.getPatByName(patName))){
+                    System.out.println("Patient's name has not been found. Ensure that you have entered a correct data and repeat:");
+                    patName = scanner.nextLine();
                 }
+
+                appointment.setPatient(h1.getPatByName(patName));
+
                 System.out.println(appointment);
                 rescheduleAppointment(patName, docName);
                 break;
@@ -1056,7 +1059,7 @@ public class Main {
                 System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
                 System.out.println("Ensure that scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
                 System.out.println("\nEnter the date of appointment: ");
-
+                scanner.nextLine();
                 date = scanner.nextLine();
                 System.out.println("\nEnter the time of appointment: ");
 
