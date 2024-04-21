@@ -393,9 +393,10 @@ public class MainApp {
         System.out.println("2. Edit doctor's details ");
         System.out.println("3. Remove doctor ");
         System.out.println("4. View all doctors ");
-        System.out.println("5. Log out ");
+        System.out.println("5. Back to Administrator's options menu");
+        System.out.println("6. Log out ");
         System.out.println("---------------------------------");
-        System.out.println("6. Exit ");
+        System.out.println("7. Exit ");
         option = scanner.nextInt();
         switch (option) {
             case 1:
@@ -460,11 +461,14 @@ public class MainApp {
                 break;
 
             case 5:
-                drawMenu();
+                drawAdminOptions();
                 break;
 
             case 6:
+                drawMenu();
+                break;
 
+            case 7:
                 break;
 
             default:
@@ -484,9 +488,10 @@ public class MainApp {
         System.out.println("2. Edit patient details ");
         System.out.println("3. Remove patient ");
         System.out.println("4. View all patients");
-        System.out.println("5. Log out ");
+        System.out.println("5. Back to Administrator's options menu");
+        System.out.println("6. Log out ");
         System.out.println("---------------------------------");
-        System.out.println("6. Exit ");
+        System.out.println("7. Exit ");
         option = scanner.nextInt();
 
         switch (option) {
@@ -526,15 +531,19 @@ public class MainApp {
                 break;
 
             case 4:
-                System.out.println(h1.getPatients());
+                h1.displayPatients();
                 managePatients();
                 break;
 
             case 5:
-                drawMenu();
+                drawAdminOptions();
                 break;
 
             case 6:
+                drawMenu();
+                break;
+
+            case 7:
                 break;
             default:
                 System.out.println("Invalid Value");
@@ -553,9 +562,10 @@ public class MainApp {
         System.out.println("2. Edit department details ");
         System.out.println("3. Remove department ");
         System.out.println("4. View all departments");
-        System.out.println("5. Log out ");
+        System.out.println("5. Back to Administrator's options menu");
+        System.out.println("6. Log out ");
         System.out.println("---------------------------------");
-        System.out.println("6. Exit ");
+        System.out.println("7. Exit ");
         option = scanner.nextInt();
 
         switch (option) {
@@ -580,14 +590,19 @@ public class MainApp {
                 break;
 
             case 4:
-                System.out.println(h1.getDepartments());
+                h1.displayDepartments();
+                manageDepartments();
                 break;
 
             case 5:
-                drawMenu();
+                drawAdminOptions();
                 break;
 
             case 6:
+                drawMenu();
+                break;
+
+            case 7:
                 break;
 
             default:
@@ -603,9 +618,10 @@ public class MainApp {
         System.out.println("2. Reschedule appointment");
         System.out.println("3. Cancel appointment");
         System.out.println("4. View all appointments");
-        System.out.println("5. Log out");
+        System.out.println("5. Back to Administrator's options menu");
+        System.out.println("6. Log out ");
         System.out.println("---------------------------------");
-        System.out.println("6. Exit");
+        System.out.println("7. Exit ");
 
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
@@ -614,6 +630,7 @@ public class MainApp {
             case 1:
                 scheduleAppointment();
                 break;
+
             case 2:
                 String patName, docName;
                 System.out.println("To edit an appointment enter next data:");
@@ -625,18 +642,27 @@ public class MainApp {
                 patName = scanner.nextLine();
                 rescheduleAppointment(patName, docName);
                 break;
+
             case 3:
                 cancelAppointment();
                 break;
+
             case 4:
                 h1.displayAppointments();
                 manageAppointments();
                 break;
+
             case 5:
+                drawAdminOptions();
+                break;
+
+            case 6:
                 drawMenu();
                 break;
-            case 6:
+
+            case 7:
                 break;
+
             default:
                 System.out.println("Invalid Value");
                 manageAppointments();

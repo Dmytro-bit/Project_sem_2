@@ -194,11 +194,41 @@ public class Hospital {
                 System.out.println("Invalid sorting parameter. Please enter 'name', 'age', 'experience' or 'none'");
                 break;
         }
-        System.out.println("List of Doctors: " + sortedDoctors);
-
+        System.out.println("List of Doctors: ");
+        displaySortedDoctors(sortedDoctors);
 
     }
+    /**
+     * count and display list of sorted doctors
+     **/
+    public void displaySortedDoctors(ArrayList<Doctor> doctors) {
+        int counter = 0;
+        for (Doctor doctor: doctors) {
+            counter++;
+            System.out.println(counter + ". " + doctor);
+        }
+    }
+    /**
+     * count and display all patients
+     **/
+    public void displayPatients() {
+        int counter = 0;
+        for (Patient patient: patients) {
+            counter++;
+            System.out.println(counter + ". " + patient);
+        }
+    }
 
+    /**
+     * count and display all departments
+     **/
+    public void displayDepartments(){
+        int counter = 0;
+        for (String department: departments) {
+            counter++;
+            System.out.println(counter + ". " + department);
+        }
+    }
     /**
      * add department to the hospital
      **/
