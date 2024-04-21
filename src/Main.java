@@ -629,7 +629,13 @@ public class Main {
                 scheduleAppointment();
                 break;
             case 2:
-
+                String patName, docName;
+                System.out.println("To edit an appointment enter next data:");
+                System.out.println("Doctor's full name: ");
+                docName = scanner.nextLine();
+                System.out.println("Patient's full name: ");
+                patName = scanner.nextLine();
+                rescheduleAppointment(patName, docName);
                 break;
             case 3:
                 cancelAppointment();
@@ -1000,5 +1006,95 @@ public class Main {
                 }
                 break;
         }
+    }
+
+    public static void rescheduleAppointment(String patName, String docName) {
+        Scanner scanner = new Scanner(System.in);
+        int option;
+
+        Appointment appointment = h1.findAppByNames(docName, patName);
+        System.out.println("What data do you want to edit?");
+        System.out.println("1. Doctor");
+        System.out.println("2. Patient");
+        System.out.println("3. Date and time");
+        System.out.println("4. To Manage Appointments menu");
+
+        option = scanner.nextInt();
+
+        switch (option) {
+            case 1:
+                System.out.println("Enter full name of new doctor");
+                docName = scanner.nextLine();
+                if(h1.getDoctors().contains(h1.getDocByName(docName))){
+                    appointment.setDoctor(h1.getDocByName(docName));
+                } else {
+                    while(!h1.getDoctors().contains(h1.getDocByName(docName))){
+                        System.out.println("Doctor's name has not been found");
+                        docName = scanner.nextLine();
+                    }
+                }
+                System.out.println(appointment);
+                rescheduleAppointment(patName, docName);
+                break;
+            case 2:
+                System.out.println("Enter full name of new patient");
+                patName = scanner.nextLine();
+                if(h1.getPatients().contains(h1.getPatByName(patName))){
+                    appointment.setPatient(h1.getPatByName(patName));
+                } else {
+                    while (!h1.getPatients().contains(h1.getPatByName(patName))){
+                        System.out.println("Patient's name has not been found");
+                        patName = scanner.nextLine();
+                    }
+                }
+                System.out.println(appointment);
+                rescheduleAppointment(patName, docName);
+                break;
+            case 3:
+                System.out.println("Enter new date and time");
+                String date, time, datetime;
+                System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
+                System.out.println("Ensure that scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
+                System.out.println("\nEnter the date of appointment: ");
+
+                date = scanner.nextLine();
+                System.out.println("\nEnter the time of appointment: ");
+
+                time = scanner.nextLine();
+
+                datetime = date+" "+time;
+                while(!datetimeValidation(datetime))
+                {
+                    System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+                    System.out.println("\nEnter the date of your appointment: ");
+                    date = scanner.nextLine();
+                    System.out.println("\nEnter the time of your appointment: ");
+                    time = scanner.nextLine();
+
+                    datetime = date+" "+time;
+                }
+                appointment.setAppointmentTime(datetime);
+                System.out.println(appointment);
+                rescheduleAppointment(patName, docName);
+                break;
+            case 4:
+
+                manageAppointments();
+                break;
+            default:
+                while (option!=1 || option!=2){
+                    System.out.println("Invalid value. Try again: ");
+                    System.out.println("What data do you want to edit?");
+                    System.out.println("1. Doctor");
+                    System.out.println("2. Patient");
+                    System.out.println("3. Date and time");
+                    System.out.println("4. To Manage Appointments menu");
+
+                    option = scanner.nextInt();
+                }
+                break;
+
+        }
+
     }
 }
