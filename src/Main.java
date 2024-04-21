@@ -623,12 +623,16 @@ public class Main {
 
         switch (option) {
             case 1:
+                scheduleAppointment();
                 break;
             case 2:
+
                 break;
             case 3:
+
                 break;
             case 4:
+                h1.displayAppointments();
                 break;
             case 5:
                 break;
@@ -901,5 +905,57 @@ public class Main {
             }
         }
 
+    }
+
+    public static void scheduleAppointment(){
+        Scanner scanner = new Scanner(System.in);
+        String date, time, datetime;
+        System.out.println("Please, use the following date and time format: Date: YYYY-MM-DD Time: HH:MM");
+        System.out.println("Ensure that scheduling appointment within hospitals working hours: "+h1.getWorkingHours());
+        System.out.print("\nEnter the date of appointment: ");
+        scanner.nextLine();
+        date = scanner.nextLine();
+        System.out.print("\nEnter the time of appointment: ");
+        scanner.nextLine();
+        time = scanner.nextLine();
+
+        datetime = date+" "+time;
+        while(!datetimeValidation(datetime))
+        {
+            System.out.println("\nInvalid Date or Time.\nPlease, try again and make sure you have used the correct date and time format");
+            System.out.println("\nEnter the date of your appointment: ");
+            date = scanner.nextLine();
+            System.out.println("\nEnter the time of your appointment: ");
+            time = scanner.nextLine();
+
+            datetime = date+" "+time;
+        }
+
+        System.out.println("Enter patient's name: ");
+        String patName = scanner.nextLine();
+        System.out.println("Enter doctor's name: ");
+        String docName = scanner.nextLine();
+        h1.addAppointment(datetime, docName, patName);
+        System.out.println("List of current appointments: ");
+        h1.displayAppointments();
+        System.out.println("1. Add next appointment");
+        System.out.println("2. To 'Manage appointments' menu");
+        int option = scanner.nextInt();
+        switch (option){
+            case 1:
+                scheduleAppointment();
+                break;
+            case 2:
+                manageAppointments();
+                break;
+            default:
+                while (option!=1 || option!=2){
+                    System.out.println("Invalid value. Try again: ");
+                    System.out.println("1. Add next appointment");
+                    System.out.println("2. To 'Manage appointments' menu");
+                    option = scanner.nextInt();
+                }
+                break;
+        }
     }
 }

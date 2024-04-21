@@ -11,7 +11,7 @@ public class Hospital {
     private ArrayList<Patient> patients;
 
     private ArrayList<String> adminPasswords, adminLogIns;
-
+    private ArrayList<Appointment> appointments;
     private String defaultPassword;
 
     //Constructor
@@ -21,6 +21,7 @@ public class Hospital {
         this.departments = departments;
         this.doctors = doctors;
         patients = new ArrayList<>();
+        appointments = new ArrayList<>();
         adminPasswords = new ArrayList<>();
         adminLogIns = new ArrayList<>();
         defaultPassword = "qwerty123";
@@ -43,6 +44,9 @@ public class Hospital {
         return this.name;
     }
 
+    public ArrayList<Appointment> getAppointments(){
+        return this.appointments;
+    }
     public String getWorkingHours() {
         return workingHours;
     }
@@ -80,6 +84,10 @@ public class Hospital {
 
     public void setDepartments(ArrayList<String> departments) {
         this.departments = departments;
+    }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     public void setDoctors(ArrayList<Doctor> doctors) {
@@ -256,6 +264,39 @@ public class Hospital {
         System.out.println(departments);
     }
 
+    public Doctor getDocByName(String docName){
+
+        for (Doctor doc: doctors) {
+            if(doc.getName().equalsIgnoreCase(docName)){
+                return doc;
+
+            }
+        }
+        return null;
+    }
+    public Patient getPatByName(String patName){
+
+        for (Patient pat: patients) {
+            if(pat.getName().equalsIgnoreCase(patName)){
+                return pat;
+            }
+        }
+        return null;
+    }
+    public void addAppointment(String time, String docName, String patName){
+        Doctor doctor = getDocByName(docName);
+        Patient patient = getPatByName(patName);
+        if(patient == null){
+            System.out.println("Patient's name has not been found");
+            Main.manageAppointments();
+        }else if (doctor == null){
+            System.out.println("Doctor's name has not been found");
+            Main.manageAppointments();
+        }else {
+            appointments.add(new Appointment(time, doctor, patient));
+        }
+
+    }
     public void addPatientsToDB(ArrayList<Patient> newPatients){
         patients.addAll(newPatients);
     }
@@ -276,6 +317,11 @@ public class Hospital {
         System.out.println("Patient " + patientToDelete + " has not been founded. Ensure that entered name is correct and person you want to delete exists.");
     }
 
+    public void displayAppointments(){
+        for (Appointment appointment: appointments) {
+            System.out.println(appointment);
+        }
+    }
     public void renameDepartment(String newDepartment, String oldDepartment){
 
         for (int i = 0; i < departments.size(); i++) {
