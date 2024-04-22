@@ -10,8 +10,8 @@ public class MainApp {
     public static Doctor currentDoctor;
 
     public static Hospital h1 = new Hospital("St James's Hospital", "08:00-20:00", doctors1, departments1);
-
     public static void main(String[] args) {
+
         //Patients
         Patient p1 = new Patient("john_123", "password1", "John Doe", 35, true, "085-456-7890", true);
         Patient p2 = new Patient("jane_123", "password2", "Jane Smith", 28, false, "086-654-3210", true);

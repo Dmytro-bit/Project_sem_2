@@ -187,7 +187,7 @@ public class Patient {
      * cancel appointment require class Appointment
      **/
     public String cancelAppointment(Appointment appointment) {
-        if (appointments.size() > 1) {
+        if (appointments.size() > 0) {
             if (this.appointments.contains(appointment)) {
                 this.appointments.remove(appointment);
                 Doctor doctor = appointment.getDoctor();
